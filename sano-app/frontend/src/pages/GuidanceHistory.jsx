@@ -1,14 +1,25 @@
 import React, { useMemo, useState } from "react";
 import { base44 } from "@/api/base44Client";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { AlertTriangle, Calendar, Eye, FileText, Search, User, X } from "lucide-react";
+import { AlertTriangle, Calendar, Eye, FileText, Search, Trash2, User, X } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import GeneratedGuidanceView from "../components/guidance/GeneratedGuidanceView";
+import { toast } from "@/components/ui/use-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 const formatDate = (date) => {
   if (!date) return "Não informada";
@@ -23,11 +34,45 @@ const formatDate = (date) => {
 export default function GuidanceHistory() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedGuidance, setSelectedGuidance] = useState(null);
+  const [guidanceToDelete, setGuidanceToDelete] = useState(null);
+  const queryClient = useQueryClient();
 
   const { data: guidances = [], isLoading } = useQuery({
     queryKey: ["guidances"],
     queryFn: () => base44.entities.NutritionalGuidance.list("-created_date"),
     initialData: [],
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: async (guidance) => {
+      // Os alertas são notificações derivadas da orientação. Tentamos removê-los,
+      // mas uma falha nessa limpeza não deve impedir a exclusão solicitada.
+      try {
+        const alerts = await base44.entities.Alert.list();
+        const relatedAlerts = alerts.filter((alert) => alert.orientacao_id === guidance.id);
+        await Promise.allSettled(
+          relatedAlerts.map((alert) => base44.entities.Alert.delete(alert.id))
+        );
+      } catch (alertError) {
+        console.warn("Não foi possível limpar alertas associados:", alertError);
+      }
+
+      return base44.entities.NutritionalGuidance.delete(guidance.id);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["guidances"] });
+      queryClient.invalidateQueries({ queryKey: ["alerts"] });
+      setSelectedGuidance(null);
+      setGuidanceToDelete(null);
+      toast({ title: "Orientação excluída" });
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Não foi possível excluir",
+        description: error.message || "Tente novamente.",
+      });
+    },
   });
 
   const filteredGuidances = useMemo(() => {
@@ -66,6 +111,47 @@ export default function GuidanceHistory() {
   return (
     <div className="space-y-6 p-6 md:p-8">
       <div className="mx-auto max-w-7xl">
+        <AlertDialog
+          open={Boolean(guidanceToDelete)}
+          onOpenChange={(open) => {
+            if (!open && !deleteMutation.isPending) {
+              setGuidanceToDelete(null);
+            }
+          }}
+        >
+          <AlertDialogContent className="max-w-md rounded-2xl border-red-100 bg-white p-6 shadow-2xl">
+            <AlertDialogHeader>
+              <AlertDialogTitle className="text-xl text-slate-900">
+                Excluir orientação?
+              </AlertDialogTitle>
+              <AlertDialogDescription className="leading-relaxed text-slate-600">
+                {guidanceToDelete ? (
+                  <>
+                    Esta ação removerá permanentemente a orientação salva para{" "}
+                    <strong className="text-slate-900">{guidanceToDelete.nome_paciente}</strong>.
+                    Essa ação não pode ser desfeita.
+                  </>
+                ) : null}
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter className="mt-3 gap-2">
+              <AlertDialogCancel disabled={deleteMutation.isPending}>
+                Cancelar
+              </AlertDialogCancel>
+              <AlertDialogAction
+                disabled={deleteMutation.isPending}
+                onClick={(event) => {
+                  event.preventDefault();
+                  deleteMutation.mutate(guidanceToDelete);
+                }}
+                className="bg-red-600 text-white hover:bg-red-700"
+              >
+                {deleteMutation.isPending ? "Excluindo..." : "Excluir orientação"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+
         <div className="mb-8">
           <h1 className="mb-2 text-4xl font-bold text-slate-900">Orientações Salvas</h1>
           <p className="text-slate-600">
@@ -146,6 +232,16 @@ export default function GuidanceHistory() {
                         <Button onClick={() => setSelectedGuidance(guidance)} variant="outline" size="sm">
                           <Eye className="mr-1.5 h-4 w-4" />
                           Abrir
+                        </Button>
+                        <Button
+                          onClick={() => setGuidanceToDelete(guidance)}
+                          variant="outline"
+                          size="sm"
+                          disabled={deleteMutation.isPending}
+                          className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                        >
+                          <Trash2 className="mr-1 h-4 w-4" />
+                          Excluir
                         </Button>
                       </div>
                     </div>
