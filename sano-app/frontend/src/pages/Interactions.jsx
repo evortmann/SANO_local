@@ -222,7 +222,7 @@ export default function Interactions() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid w-full grid-cols-1 gap-3">
               {filteredInteractions.map((interaction) => (
                 <InteractionCard
                   key={interaction.id}
