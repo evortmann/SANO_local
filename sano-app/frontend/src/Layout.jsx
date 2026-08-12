@@ -39,6 +39,11 @@ const navigationItems = [
     url: createPageUrl("GenerateGuidance"),
     icon: Sparkles,
   },
+  {
+    title: "Orientações Salvas",
+    url: createPageUrl("GuidanceHistory"),
+    icon: FileText,
+  },
 ];
 
 export default function Layout({ children }) {

@@ -8,7 +8,7 @@ import { Save, X, FileText, AlertTriangle, CheckCircle, Pill, Apple, Clock, Info
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
-export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSaving }) {
+export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSaving, readOnly = false }) {
   const [isEditing, setIsEditing] = useState(false);
   const [edited, setEdited] = useState(guidance);
 
@@ -251,7 +251,7 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
             <div>
               <CardTitle className="text-2xl text-slate-900 flex items-center gap-2 mb-2">
                 <CheckCircle className="w-6 h-6 text-green-600" />
-                Orientação Nutricional Gerada
+                {readOnly ? "Orientação Nutricional Salva" : "Orientação Nutricional Gerada"}
               </CardTitle>
               <p className="text-slate-600">Paciente: {currentGuidance.nome_paciente}</p>
               <div className="flex gap-2 mt-2">
@@ -263,15 +263,17 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
                 </Badge>
               </div>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => { setIsEditing(!isEditing); if (isEditing) setEdited(guidance); }}
-              className={isEditing ? "border-orange-400 text-orange-600 hover:bg-orange-50" : "border-primary text-primary hover:bg-primary/10"}
-            >
-              <Pencil className="w-4 h-4 mr-1" />
-              {isEditing ? "Cancelar edição" : "Editar"}
-            </Button>
+            {!readOnly && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => { setIsEditing(!isEditing); if (isEditing) setEdited(guidance); }}
+                className={isEditing ? "border-orange-400 text-orange-600 hover:bg-orange-50" : "border-primary text-primary hover:bg-primary/10"}
+              >
+                <Pencil className="w-4 h-4 mr-1" />
+                {isEditing ? "Cancelar edição" : "Editar"}
+              </Button>
+            )}
           </div>
         </CardHeader>
         <CardContent className="p-6">
@@ -428,7 +430,7 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
 
           <div className="flex justify-end gap-3 mt-6 pt-6 border-t border-slate-200">
             <Button onClick={onCancel} variant="outline" disabled={isSaving}>
-              Descartar
+              {readOnly ? "Voltar" : "Descartar"}
             </Button>
             <Button 
               onClick={handlePrint} 
@@ -438,14 +440,16 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
               <Printer className="w-4 h-4 mr-2" />
               Imprimir
             </Button>
-            <Button 
-              onClick={handleSave} 
-              disabled={isSaving}
-              className="bg-green-600 hover:bg-green-700"
-            >
-              <Save className="w-4 h-4 mr-2" />
-              {isSaving ? 'Salvando...' : 'Salvar Orientação'}
-            </Button>
+            {!readOnly && (
+              <Button 
+                onClick={handleSave} 
+                disabled={isSaving}
+                className="bg-green-600 hover:bg-green-700"
+              >
+                <Save className="w-4 h-4 mr-2" />
+                {isSaving ? 'Salvando...' : 'Salvar Orientação'}
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>

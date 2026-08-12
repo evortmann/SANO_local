@@ -1,5 +1,6 @@
 import Dashboard from './pages/Dashboard';
 import GenerateGuidance from './pages/GenerateGuidance';
+import GuidanceHistory from './pages/GuidanceHistory';
 import Home from './pages/Home';
 import Interactions from './pages/Interactions';
 import Patients from './pages/Patients';
@@ -9,6 +10,7 @@ import __Layout from './Layout.jsx';
 export const PAGES = {
     "Dashboard": Dashboard,
     "GenerateGuidance": GenerateGuidance,
+    "GuidanceHistory": GuidanceHistory,
     "Home": Home,
     "Interactions": Interactions,
     "Patients": Patients,
