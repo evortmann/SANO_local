@@ -29,7 +29,7 @@ export default function Patients() {
       queryClient.invalidateQueries({ queryKey: ['patients'] });
       setShowForm(false);
       setEditingPatient(null);
-      toast({ title: "Paciente salvo"});
+      toast({ title: "Paciente salvo", description: "O paciente foi gravado no banco de dados local." });
     },
     onError: (error) => {
       toast({ variant: "destructive", title: "Não foi possível salvar", description: error.message });
@@ -43,7 +43,7 @@ export default function Patients() {
       setShowForm(false);
       setEditingPatient(null);
       setSelectedPatient(null);
-      toast({ title: "Paciente atualizado" });
+      toast({ title: "Paciente atualizado", description: "As alterações foram gravadas no banco de dados local." });
     },
     onError: (error) => {
       toast({ variant: "destructive", title: "Não foi possível atualizar", description: error.message });
@@ -124,7 +124,7 @@ export default function Patients() {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid w-full grid-cols-1 gap-3">
               {filteredPatients.map((patient) => (
                 <PatientCard
                   key={patient.id}
