@@ -1,0 +1,50 @@
+require("dotenv").config();
+const express = require("express");
+const { Pool } = require("pg");
+const cors = require("cors");
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+const pool = new Pool({
+    user: process.env.DB_USER,
+    host: process.env.DB_HOST,
+    database: process.env.DB_DATABASE,
+    password: process.env.DB_PASSWORD,
+    port: parseInt(process.env.DB_PORT),
+});
+
+app.use(cors());
+app.use(express.json());
+
+// Exemplo de rota para listar pacientes
+app.get("/api/patients", async (req, res) => {
+    try {
+        const { rows } = await pool.query("SELECT * FROM patients");
+        res.json(rows);
+    } catch (err) {
+        console.error("Erro ao buscar pacientes:", err);
+        res.status(500).send("Server Error");
+    }
+});
+
+// Rota de exemplo para criar paciente (simplificada)
+app.post("/api/patients", async (req, res) => {
+    const { nome, idade, sexo, tipo_cancer, estadiamento, imc, status, medicamentos } = req.body;
+    try {
+        const result = await pool.query(
+            "INSERT INTO patients (nome, idade, sexo, tipo_cancer, estadiamento, imc, status, medicamentos) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+            [nome, idade, sexo, tipo_cancer, estadiamento, imc, status, medicamentos]
+        );
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error("Erro ao criar paciente:", err);
+        res.status(500).send("Server Error");
+    }
+});
+
+// Adicione outras rotas para interações, orientações, autenticação, etc.
+
+app.listen(port, () => {
+    console.log(`Backend server running on http://localhost:${port}`);
+});

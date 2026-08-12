@@ -1,0 +1,21 @@
+import Dashboard from './pages/Dashboard';
+import GenerateGuidance from './pages/GenerateGuidance';
+import Home from './pages/Home';
+import Interactions from './pages/Interactions';
+import Patients from './pages/Patients';
+import __Layout from './Layout.jsx';
+
+
+export const PAGES = {
+    "Dashboard": Dashboard,
+    "GenerateGuidance": GenerateGuidance,
+    "Home": Home,
+    "Interactions": Interactions,
+    "Patients": Patients,
+}
+
+export const pagesConfig = {
+    mainPage: "Dashboard",
+    Pages: PAGES,
+    Layout: __Layout,
+};

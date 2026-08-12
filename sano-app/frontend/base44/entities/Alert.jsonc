@@ -1,0 +1,58 @@
+{
+  "name": "Alert",
+  "type": "object",
+  "properties": {
+    "tipo": {
+      "type": "string",
+      "enum": [
+        "interacao_grave",
+        "interacao_moderada"
+      ],
+      "description": "Tipo de alerta"
+    },
+    "paciente_nome": {
+      "type": "string",
+      "description": "Nome do paciente relacionado"
+    },
+    "paciente_id": {
+      "type": "string",
+      "description": "ID do paciente"
+    },
+    "orientacao_id": {
+      "type": "string",
+      "description": "ID da orienta\u00e7\u00e3o gerada"
+    },
+    "severidade": {
+      "type": "string",
+      "enum": [
+        "Grave",
+        "Moderada"
+      ],
+      "description": "N\u00edvel de severidade"
+    },
+    "interacoes_count": {
+      "type": "number",
+      "description": "Quantidade de intera\u00e7\u00f5es encontradas"
+    },
+    "mensagem": {
+      "type": "string",
+      "description": "Mensagem do alerta"
+    },
+    "lido": {
+      "type": "boolean",
+      "default": false,
+      "description": "Status de leitura do alerta"
+    },
+    "email_enviado": {
+      "type": "boolean",
+      "default": false,
+      "description": "Se o e-mail foi enviado"
+    }
+  },
+  "required": [
+    "tipo",
+    "paciente_nome",
+    "severidade",
+    "mensagem"
+  ]
+}

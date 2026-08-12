@@ -1,0 +1,63 @@
+{
+  "name": "DrugNutrientInteraction",
+  "type": "object",
+  "properties": {
+    "nome_medicamento": {
+      "type": "string",
+      "description": "Nome do medicamento/droga"
+    },
+    "classe_terapeutica": {
+      "type": "string",
+      "description": "Classe terap\u00eautica do medicamento"
+    },
+    "nutriente_afetado": {
+      "type": "string",
+      "description": "Nutriente ou alimento que interage"
+    },
+    "tipo_interacao": {
+      "type": "string",
+      "enum": [
+        "Reduz absor\u00e7\u00e3o",
+        "Aumenta toxicidade",
+        "Reduz efic\u00e1cia",
+        "Aumenta efeitos colaterais",
+        "Deple\u00e7\u00e3o nutricional",
+        "Contraindica\u00e7\u00e3o",
+        "Requer ajuste de dose"
+      ],
+      "description": "Tipo de intera\u00e7\u00e3o"
+    },
+    "severidade": {
+      "type": "string",
+      "enum": [
+        "Leve",
+        "Moderada",
+        "Grave"
+      ],
+      "description": "N\u00edvel de severidade da intera\u00e7\u00e3o"
+    },
+    "mecanismo": {
+      "type": "string",
+      "description": "Mecanismo de a\u00e7\u00e3o da intera\u00e7\u00e3o"
+    },
+    "orientacao_nutricional": {
+      "type": "string",
+      "description": "Orienta\u00e7\u00e3o nutricional recomendada"
+    },
+    "referencias_bibliograficas": {
+      "type": "string",
+      "description": "Refer\u00eancias cient\u00edficas"
+    },
+    "observacoes_clinicas": {
+      "type": "string",
+      "description": "Observa\u00e7\u00f5es cl\u00ednicas relevantes"
+    }
+  },
+  "required": [
+    "nome_medicamento",
+    "nutriente_afetado",
+    "tipo_interacao",
+    "severidade",
+    "orientacao_nutricional"
+  ]
+}

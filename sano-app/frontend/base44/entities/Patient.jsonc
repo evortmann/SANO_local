@@ -1,0 +1,74 @@
+{
+  "name": "Patient",
+  "type": "object",
+  "properties": {
+    "nome_completo": {
+      "type": "string",
+      "description": "Nome completo do paciente"
+    },
+    "data_nascimento": {
+      "type": "string",
+      "format": "date",
+      "description": "Data de nascimento"
+    },
+    "sexo": {
+      "type": "string",
+      "enum": [
+        "Masculino",
+        "Feminino",
+        "Outro"
+      ],
+      "description": "Sexo biol\u00f3gico"
+    },
+    "peso": {
+      "type": "number",
+      "description": "Peso em kg"
+    },
+    "altura": {
+      "type": "number",
+      "description": "Altura em cm"
+    },
+    "tipo_cancer": {
+      "type": "string",
+      "description": "Tipo de c\u00e2ncer diagnosticado"
+    },
+    "estadiamento": {
+      "type": "string",
+      "description": "Estadiamento do c\u00e2ncer"
+    },
+    "medicamentos_atuais": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Lista de medicamentos em uso"
+    },
+    "alergias": {
+      "type": "string",
+      "description": "Alergias alimentares ou medicamentosas"
+    },
+    "observacoes": {
+      "type": "string",
+      "description": "Observa\u00e7\u00f5es cl\u00ednicas adicionais"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "Ativo",
+        "Inativo",
+        "Finalizado"
+      ],
+      "default": "Ativo",
+      "description": "Status do acompanhamento"
+    }
+  },
+  "required": [
+    "nome_completo",
+    "tipo_cancer"
+  ],
+  "rls": {
+    "create": {
+      "created_by": "{{user.email}}"
+    }
+  }
+}

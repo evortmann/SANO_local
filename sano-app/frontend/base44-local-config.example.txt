@@ -1,0 +1,6 @@
+Crie um ficheiro chamado .env.local nesta mesma pasta (frontend) e copie as linhas abaixo.
+
+VITE_BASE44_APP_ID=6913bc0525a49f7462cefdf9
+VITE_BASE44_BACKEND_URL=https://base44.app
+
+Depois reinicie `npm run dev`.
