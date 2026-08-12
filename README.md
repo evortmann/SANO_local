@@ -1,6 +1,6 @@
 # SANO+
 
-Projecto local do SANO+, organizado em três partes: PostgreSQL executado via Docker, backend Node/Express e frontend React/Vite exportado da Base44.
+Projeto local do SANO+, organizado em três partes: PostgreSQL executado via Docker, backend Node/Express e frontend React/Vite exportado da Base44.
 
 ## Estrutura
 
