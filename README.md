@@ -27,7 +27,7 @@ Na raiz `sano-app`, iniciar o PostgreSQL:
 docker compose up -d db
 ```
 
-Noutro terminal, iniciar o backend:
+Em outro terminal, iniciar o backend:
 
 ```bash
 cd sano-app/backend
@@ -35,7 +35,7 @@ npm ci
 npm start
 ```
 
-Noutro terminal, iniciar o frontend:
+Em outro terminal, iniciar o frontend:
 
 ```bash
 cd sano-app/frontend
@@ -59,25 +59,6 @@ Para validar a sintaxe do backend:
 ```bash
 cd sano-app/backend
 node --check server.js
-```
-
-## Publicação no GitHub
-
-Depois de validar localmente, executar na raiz do projecto:
-
-```bash
-git status
-git add .
-git commit -m "Atualiza frontend para nova versão Base44"
-git push origin main
-```
-
-Se o repositório ainda não estiver ligado a um remoto, configurar o URL fornecido pelo GitHub antes do `push`:
-
-```bash
-git remote add origin https://github.com/UTILIZADOR/REPOSITORIO.git
-git branch -M main
-git push -u origin main
 ```
 
 Nunca fazer `git add -f` dos ficheiros `.env`, `.env.local`, `backend/.env` ou `base44/.app.jsonc`.
