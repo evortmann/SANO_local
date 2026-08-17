@@ -1,8 +1,9 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { createPageUrl } from "@/utils";
-import { LayoutDashboard, Users, Database, FileText, Sparkles } from "lucide-react";
+import { LayoutDashboard, Users, Database, FileText, LogOut, Sparkles } from "lucide-react";
 import teamworkLogo from "@/assets/sano-teamwork-logo.png";
+import { useAuth } from "@/lib/AuthContext";
 
 import {
   Sidebar,
@@ -48,6 +49,7 @@ const navigationItems = [
 
 export default function Layout({ children }) {
   const location = useLocation();
+  const { user, logout } = useAuth();
 
   return (
     <SidebarProvider>
@@ -91,6 +93,25 @@ export default function Layout({ children }) {
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+
+            <SidebarGroup className="mt-auto border-t border-border pt-3">
+              <SidebarGroupContent>
+                <div className="mb-2 px-3 text-xs text-muted-foreground">
+                  {user?.full_name || user?.email || "Usuário autenticado"}
+                </div>
+                <SidebarMenu>
+                  <SidebarMenuItem>
+                    <SidebarMenuButton
+                      onClick={() => logout()}
+                      className="rounded-xl text-muted-foreground transition-all duration-200 hover:bg-red-50 hover:text-red-700"
+                    >
+                      <LogOut className="h-5 w-5" />
+                      <span className="font-medium">Terminar sessão</span>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
                 </SidebarMenu>
               </SidebarGroupContent>
             </SidebarGroup>

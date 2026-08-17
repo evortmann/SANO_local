@@ -9,6 +9,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
+import Login from './pages/Login';
 
 const { Pages, Layout, mainPage } = pagesConfig;
 const mainPageKey = mainPage ?? Object.keys(Pages)[0];
@@ -19,7 +20,7 @@ const LayoutWrapper = ({ children, currentPageName }) => Layout ?
   : <>{children}</>;
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated, navigateToLogin } = useAuth();
+  const { isLoadingAuth, isLoadingPublicSettings, authError, isAuthenticated } = useAuth();
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -35,10 +36,21 @@ const AuthenticatedApp = () => {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
     } else if (authError.type === 'auth_required') {
-      // Redirect to login automatically
-      navigateToLogin();
-      return null;
+      return <Login initialError="Inicie sessão para aceder ao SANO+." />;
+    } else if (authError.type === 'unknown') {
+      return (
+        <div className="flex min-h-screen items-center justify-center bg-slate-50 p-6">
+          <div className="max-w-md rounded-2xl border border-red-200 bg-white p-8 text-center shadow-xl">
+            <h1 className="text-xl font-bold text-slate-900">Não foi possível carregar o SANO+</h1>
+            <p className="mt-3 text-sm text-slate-600">{authError.message || 'Verifique a ligação e tente novamente.'}</p>
+          </div>
+        </div>
+      );
     }
+  }
+
+  if (!isAuthenticated) {
+    return <Login />;
   }
 
   // Render the main app

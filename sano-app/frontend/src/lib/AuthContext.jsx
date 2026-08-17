@@ -21,7 +21,22 @@ export const AuthProvider = ({ children }) => {
     try {
       setIsLoadingPublicSettings(true);
       setAuthError(null);
+
+      const localDemoAuthenticated = typeof window !== 'undefined' && window.localStorage?.getItem('sano_demo_auth') === 'true';
+      if (localDemoAuthenticated) {
+        setAppPublicSettings(null);
+        setIsAuthenticated(true);
+        setIsLoadingPublicSettings(false);
+        setIsLoadingAuth(false);
+        return;
+      }
       
+      // Use the token returned by the login, including after a page refresh.
+      const storedToken = typeof window !== 'undefined' && window.localStorage
+        ? window.localStorage.getItem('base44_access_token') || window.localStorage.getItem('token')
+        : null;
+      const authToken = appParams.token || storedToken;
+
       // First, check app public settings (with token if available)
       // This will tell us if auth is required, user not registered, etc.
       const appClient = createAxiosClient({
@@ -29,7 +44,7 @@ export const AuthProvider = ({ children }) => {
         headers: {
           'X-App-Id': appParams.appId
         },
-        token: appParams.token, // Include token if available
+        token: authToken, // Include token if available
         interceptResponses: true
       });
       
@@ -38,7 +53,7 @@ export const AuthProvider = ({ children }) => {
         setAppPublicSettings(publicSettings);
         
         // If we got the app public settings successfully, check if user is authenticated
-        if (appParams.token) {
+        if (authToken) {
           await checkUserAuth();
         } else {
           setIsLoadingAuth(false);
@@ -111,8 +126,18 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = (shouldRedirect = true) => {
+    const isLocalDemo = typeof window !== 'undefined' && window.localStorage?.getItem('sano_demo_auth') === 'true';
+
     setUser(null);
     setIsAuthenticated(false);
+
+    if (isLocalDemo) {
+      window.localStorage.removeItem('sano_demo_auth');
+      if (shouldRedirect) {
+        window.location.reload();
+      }
+      return;
+    }
     
     if (shouldRedirect) {
       // Use the SDK's logout method which handles token cleanup and redirect
