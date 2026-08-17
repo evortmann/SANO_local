@@ -281,37 +281,6 @@ export default function Dashboard() {
           </Card>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          <Link to={createPageUrl("Patients")}>
-            <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer bg-gradient-to-br from-white to-blue-50">
-              <CardContent className="p-6">
-                <Users className="w-12 h-12 text-blue-600 mb-4" />
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Gerenciar Pacientes</h3>
-                <p className="text-sm text-slate-600">Cadastre e acompanhe seus pacientes oncológicos</p>
-              </CardContent>
-            </Card>
-          </Link>
-
-          <Link to={createPageUrl("Interactions")}>
-            <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer bg-gradient-to-br from-white to-green-50">
-              <CardContent className="p-6">
-                <Database className="w-12 h-12 text-green-600 mb-4" />
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Base de Interações</h3>
-                <p className="text-sm text-slate-600">Consulte e gerencie as interações droga-nutriente</p>
-              </CardContent>
-            </Card>
-          </Link>
-
-          <Link to={createPageUrl("GenerateGuidance")}>
-            <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 cursor-pointer bg-gradient-to-br from-white to-purple-50">
-              <CardContent className="p-6">
-                <FileText className="w-12 h-12 text-purple-600 mb-4" />
-                <h3 className="text-lg font-bold text-slate-900 mb-2">Gerar Orientação</h3>
-                <p className="text-sm text-slate-600">Crie orientações nutricionais personalizadas</p>
-              </CardContent>
-            </Card>
-          </Link>
-        </div>
       </div>
     </div>
   );
