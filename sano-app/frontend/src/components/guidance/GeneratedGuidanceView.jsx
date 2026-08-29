@@ -93,25 +93,25 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
       }
       .header {
         text-align: center;
-        border-bottom: 3px solid #2563eb;
+        border-bottom: 3px solid #0f766e;
         padding-bottom: 12px;
         margin-bottom: 16px;
       }
-      .header h1 { color: #1e40af; font-size: 20px; }
+      .header h1 { color: #115e59; font-size: 20px; }
       .patient-info {
         background: #f1f5f9;
         padding: 10px 14px;
         border-radius: 6px;
         margin-bottom: 14px;
-        border-left: 4px solid #2563eb;
+        border-left: 4px solid #0f766e;
       }
-      .patient-info h2 { color: #1e40af; font-size: 13px; margin-bottom: 6px; }
+      .patient-info h2 { color: #115e59; font-size: 13px; margin-bottom: 6px; }
       .info-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
       .info-item { font-size: 12px; }
       .info-item strong { color: #475569; }
       .section { margin-bottom: 12px; page-break-inside: avoid; }
       .section-title {
-        background: #2563eb;
+        background: #0f766e;
         color: white;
         padding: 6px 12px;
         border-radius: 4px;
@@ -140,7 +140,7 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
         align-items: flex-start;
         gap: 8px;
       }
-      .medication { font-weight: bold; color: #1e40af; font-size: 11px; }
+      .medication { font-weight: bold; color: #115e59; font-size: 11px; }
       .int-type { font-size: 11px; color: #64748b; }
       .severity {
         padding: 1px 6px;
@@ -168,7 +168,7 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
       .text-content { text-align: justify; line-height: 1.6; font-size: 11px; }
       ul { list-style: none; padding-left: 0; }
       ul li { padding: 3px 0 3px 16px; position: relative; font-size: 11px; }
-      ul li::before { content: "→"; position: absolute; left: 0; color: #2563eb; font-weight: bold; }
+      ul li::before { content: "→"; position: absolute; left: 0; color: #0f766e; font-weight: bold; }
       .footer {
         margin-top: 16px;
         padding-top: 10px;
