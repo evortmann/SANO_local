@@ -20,6 +20,7 @@ app.use(express.json());
 
 const patientColumns = [
   "nome_completo",
+  "telefone",
   "data_nascimento",
   "sexo",
   "peso",
@@ -35,6 +36,7 @@ const patientColumns = [
 function normalisePatient(data = {}) {
   return {
     nome_completo: String(data.nome_completo || "").trim(),
+    telefone: String(data.telefone || "").trim() || null,
     data_nascimento: data.data_nascimento || null,
     sexo: data.sexo || null,
     peso: data.peso === "" || data.peso === undefined ? null : Number(data.peso),
@@ -53,6 +55,7 @@ async function ensureSchema() {
     CREATE TABLE IF NOT EXISTS patients (
       id SERIAL PRIMARY KEY,
       nome_completo TEXT NOT NULL,
+      telefone TEXT,
       data_nascimento DATE,
       sexo TEXT,
       peso NUMERIC,
@@ -72,6 +75,7 @@ async function ensureSchema() {
   await pool.query(`
     ALTER TABLE patients
       ADD COLUMN IF NOT EXISTS nome_completo TEXT,
+      ADD COLUMN IF NOT EXISTS telefone TEXT,
       ADD COLUMN IF NOT EXISTS data_nascimento DATE,
       ADD COLUMN IF NOT EXISTS peso NUMERIC,
       ADD COLUMN IF NOT EXISTS altura NUMERIC,

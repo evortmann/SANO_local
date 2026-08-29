@@ -119,6 +119,7 @@ Seja detalhado, prático e considere a qualidade de vida do paciente.
       const guidance = {
         patient_id: String(selectedPatient.id),
         nome_paciente: selectedPatient.nome_completo,
+        telefone: selectedPatient.telefone || "",
         medicamentos_analisados: patientMeds,
         interacoes_identificadas: interactionsData,
         orientacoes_gerais: result.orientacoes_gerais,

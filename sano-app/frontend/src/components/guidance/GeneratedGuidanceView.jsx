@@ -4,9 +4,39 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { Save, X, FileText, AlertTriangle, CheckCircle, Pill, Apple, Clock, Info, Printer, Pencil, Plus, Trash2 } from "lucide-react";
+import { Save, X, FileText, AlertTriangle, CheckCircle, Pill, Apple, Clock, Info, Printer, Pencil, Plus, Trash2, MessageCircle } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+
+const normalizeWhatsAppPhone = (phone = "") => {
+  const digits = String(phone).replace(/\D/g, "");
+  if (digits.length === 10 || digits.length === 11) return `55${digits}`;
+  return digits;
+};
+
+const buildWhatsAppMessage = (g) => {
+  const lines = [
+    `Olá! Segue a orientação nutricional de ${g.nome_paciente}.`,
+    "",
+    "ORIENTAÇÕES GERAIS",
+    g.orientacoes_gerais,
+  ];
+
+  if (g.alimentos_evitar?.length) {
+    lines.push("", "ALIMENTOS A EVITAR", ...g.alimentos_evitar.map((item) => `• ${item}`));
+  }
+  if (g.alimentos_recomendados?.length) {
+    lines.push("", "ALIMENTOS RECOMENDADOS", ...g.alimentos_recomendados.map((item) => `• ${item}`));
+  }
+  if (g.suplementacao_necessaria?.length) {
+    lines.push("", "SUPLEMENTAÇÃO RECOMENDADA", ...g.suplementacao_necessaria.map((item) => `• ${item}`));
+  }
+  if (g.horarios_alimentacao) lines.push("", "HORÁRIOS DE ALIMENTAÇÃO", g.horarios_alimentacao);
+  if (g.observacoes_especiais) lines.push("", "OBSERVAÇÕES ESPECIAIS", g.observacoes_especiais);
+
+  lines.push("", `Válida até: ${g.validade}`, "", "Esta orientação deve ser avaliada por um profissional nutricionista qualificado.");
+  return lines.join("\n");
+};
 
 export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSaving, readOnly = false }) {
   const [isEditing, setIsEditing] = useState(false);
@@ -33,6 +63,17 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
   };
 
   const handleSave = () => onSave(isEditing ? edited : guidance);
+  const handleWhatsApp = () => {
+    const current = isEditing ? edited : guidance;
+    const phone = normalizeWhatsAppPhone(current.telefone);
+    if (!phone) {
+      window.alert("Este paciente não possui um telefone/WhatsApp cadastrado.");
+      return;
+    }
+
+    const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(buildWhatsAppMessage(current))}`;
+    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+  };
   const handlePrint = () => {
     const g = isEditing ? edited : guidance;
     
@@ -431,6 +472,14 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
           <div className="flex justify-end gap-3 mt-6 pt-6 border-t border-slate-200">
             <Button onClick={onCancel} variant="outline" disabled={isSaving}>
               {readOnly ? "Voltar" : "Descartar"}
+            </Button>
+            <Button
+              onClick={handleWhatsApp}
+              variant="outline"
+              className="border-green-600 text-green-600 hover:bg-green-50"
+            >
+              <MessageCircle className="w-4 h-4 mr-2" />
+              Enviar pelo WhatsApp
             </Button>
             <Button 
               onClick={handlePrint} 

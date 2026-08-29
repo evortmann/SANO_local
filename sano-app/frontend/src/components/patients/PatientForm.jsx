@@ -57,6 +57,7 @@ const levenshteinDistance = (first, second) => {
 export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) {
   const [formData, setFormData] = useState(patient || {
     nome_completo: "",
+    telefone: "",
     data_nascimento: "",
     sexo: "",
     peso: "",
@@ -191,6 +192,19 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
             <div className="space-y-2">
               <Label htmlFor="nome_completo" className="font-medium text-slate-700">Nome Completo *</Label>
               <Input id="nome_completo" value={formData.nome_completo} onChange={(e) => handleChange('nome_completo', e.target.value)} required className="border-slate-200" />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="telefone" className="font-medium text-slate-700">Telefone / WhatsApp</Label>
+              <Input
+                id="telefone"
+                type="tel"
+                value={formData.telefone || ""}
+                onChange={(e) => handleChange('telefone', e.target.value)}
+                placeholder="Ex: +55 11 99999-9999"
+                className="border-slate-200"
+              />
+              <p className="text-xs text-slate-500">Informe o código do país e o DDD para abrir o WhatsApp corretamente.</p>
             </div>
 
             <div className="space-y-2">

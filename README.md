@@ -62,3 +62,26 @@ node --check server.js
 ```
 
 Nunca fazer `git add -f` dos ficheiros `.env`, `.env.local`, `backend/.env` ou `base44/.app.jsonc`.
+
+## Envio de orientações pelo WhatsApp
+
+O cadastro de pacientes inclui o campo **Telefone / WhatsApp**. Informe o número com código do país e DDD, por exemplo `+55 11 99999-9999`. Depois de gerar uma orientação, use o botão **Enviar pelo WhatsApp** para abrir o WhatsApp Web ou a aplicação WhatsApp com uma mensagem preenchida.
+
+Esta implementação não envia mensagens automaticamente pela API oficial do WhatsApp: ela prepara a mensagem e deixa a confirmação final ao profissional. O número é normalizado no navegador; números brasileiros com 10 ou 11 dígitos recebem automaticamente o prefixo `55`.
+
+As orientações podem conter informação clínica sensível. Confirme o destinatário antes de enviar e utilize apenas um canal autorizado pelo paciente e pela instituição.
+
+## Alterações desta versão
+
+- Adicionado o campo `telefone` à tabela `patients`, com migração compatível para bases existentes.
+- Adicionado o campo Telefone / WhatsApp ao formulário de pacientes.
+- Adicionado o botão Enviar pelo WhatsApp à visualização da orientação.
+- A mensagem inclui as orientações gerais, alimentos a evitar e recomendados, suplementação, horários, observações e validade.
+- Mantida a proteção para não versionar ficheiros `.env`, `.env.local`, `node_modules` e `dist`.
+
+## Validação realizada
+
+- `npm run build` no frontend: concluído com sucesso.
+- `node --check sano-app/backend/server.js`: concluído com sucesso.
+
+A compilação do frontend emite apenas o aviso já existente sobre o tamanho de um dos chunks JavaScript.
