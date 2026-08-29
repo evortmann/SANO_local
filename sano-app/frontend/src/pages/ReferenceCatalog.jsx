@@ -90,13 +90,23 @@ export default function ReferenceCatalog() {
     setClearMessage("");
     try {
       const interactions = await base44.entities.DrugNutrientInteraction.list();
-      for (const interaction of interactions) {
-        await base44.entities.DrugNutrientInteraction.delete(interaction.id);
-      }
+      const deletionResults = await Promise.allSettled(
+        interactions.map((interaction) => base44.entities.DrugNutrientInteraction.delete(interaction.id))
+      );
+      const failed = deletionResults.filter((result) => result.status === "rejected");
+
       await queryClient.invalidateQueries({ queryKey: ["interactions"] });
-      setClearMessage(`${interactions.length} registo(s) de interação foram excluídos. Atualize a Dashboard para confirmar os indicadores.`);
+      await queryClient.refetchQueries({ queryKey: ["interactions"], type: "active" });
+      const remaining = await base44.entities.DrugNutrientInteraction.list();
+
+      if (failed.length > 0 || remaining.length > 0) {
+        setClearMessage(`${interactions.length - failed.length} excluído(s), ${failed.length} falha(s); ainda restam ${remaining.length} registo(s). Verifique a permissão da conta ou reinicie a aplicação atualizada.`);
+      } else {
+        queryClient.setQueryData(["interactions"], []);
+        setClearMessage(`${interactions.length} registo(s) excluído(s). A base e as interações graves estão agora em zero.`);
+      }
     } catch (error) {
-      setClearMessage("Não foi possível zerar a base de interações. Verifique a ligação e tente novamente.");
+      setClearMessage(`Não foi possível zerar a base de interações: ${error?.message || "verifique a ligação e tente novamente."}`);
     } finally {
       setIsClearingInteractions(false);
     }
