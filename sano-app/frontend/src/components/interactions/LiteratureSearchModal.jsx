@@ -108,7 +108,7 @@ Retorne o máximo de interações documentadas que encontrar, sendo rigoroso com
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2 text-foreground font-heading">
             <BookOpen className="w-5 h-5 text-primary" />
-            Buscar na Literatura Científica
+            Busca na Literatura
           </CardTitle>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="w-4 h-4" />

@@ -108,3 +108,7 @@ A entrada **Base de Interações** apresenta duas segmentações independentes:
 O catálogo inicial foi importado das páginas públicas do [Guia Farmacoterapêutico do Hospital Erasto Gaertner](https://guiafarmaco.erastogaertner.com.br/), com a fonte e a data de consulta preservadas em `sano-app/frontend/src/data/referenceCatalog.json`. O script de importação está em `tools/extract_reference_catalog.py`.
 
 A importação deve ser revista e autorizada pelo responsável pelos conteúdos antes de uma utilização institucional ou de uma redistribuição pública. O conteúdo clínico não substitui protocolos internos nem a avaliação de profissional habilitado.
+
+## Busca na Literatura
+
+A Base de Interações mantém agora uma terceira opção no menu principal: **Buscar na Literatura**. Ela reutiliza o fluxo de pesquisa científica existente para procurar interações droga–nutriente que ainda não estejam nos catálogos Farmacoterapêutico ou Antineoplásico. Os resultados podem ser selecionados e importados para a base de interações.

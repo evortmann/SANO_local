@@ -3,6 +3,7 @@ import { ArrowLeft, BookOpen, ChevronRight, ExternalLink, FlaskConical, Pill, Se
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
+import LiteratureSearchModal from "../components/interactions/LiteratureSearchModal";
 import catalog from "../data/referenceCatalog.json";
 
 const sectionConfig = {
@@ -54,6 +55,7 @@ export default function ReferenceCatalog() {
   const [sectionKey, setSectionKey] = useState(null);
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [showLiteratureSearch, setShowLiteratureSearch] = useState(false);
 
   const section = sectionKey ? sectionConfig[sectionKey] : null;
   const sourceItems = sectionKey ? catalog[sectionKey]?.items || [] : [];
@@ -155,6 +157,22 @@ export default function ReferenceCatalog() {
     );
   }
 
+  if (showLiteratureSearch) {
+    return (
+      <div className="min-h-full bg-slate-50 p-6 md:p-8">
+        <div className="mx-auto max-w-5xl">
+          <button type="button" onClick={() => setShowLiteratureSearch(false)} className="mb-6 flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">
+            <ArrowLeft className="h-4 w-4" /> Voltar para Base de Interações
+          </button>
+          <LiteratureSearchModal
+            onClose={() => setShowLiteratureSearch(false)}
+            onImported={() => setShowLiteratureSearch(false)}
+          />
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-full bg-slate-50 p-6 md:p-8">
       <div className="mx-auto max-w-5xl">
@@ -163,7 +181,7 @@ export default function ReferenceCatalog() {
           <h1 className="text-3xl font-bold text-slate-900 md:text-4xl">Base de Interações</h1>
           <p className="mt-2 text-slate-600">Escolha uma segmentação para consultar medicamentos ou protocolos.</p>
         </div>
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-6 md:grid-cols-3">
           {Object.entries(sectionConfig).map(([key, item]) => {
             const colors = colorClasses[item.color];
             return (
@@ -178,6 +196,15 @@ export default function ReferenceCatalog() {
               </button>
             );
           })}
+          <button type="button" onClick={() => setShowLiteratureSearch(true)} className="group rounded-2xl border border-amber-200 bg-white p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-amber-400 hover:shadow-lg">
+            <div className="mb-6 flex items-center justify-between">
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100 text-amber-700"><BookOpen className="h-7 w-7" /></div>
+              <ChevronRight className="h-6 w-6 text-slate-300 transition-transform group-hover:translate-x-1" />
+            </div>
+            <h2 className="text-2xl font-bold text-slate-900">BUSCAR</h2>
+            <p className="mt-2 leading-relaxed text-slate-600">Procure novas interações droga–nutriente quando ainda não estiverem no catálogo.</p>
+            <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-amber-700"><Search className="h-4 w-4" /> BUSCAR</div>
+          </button>
         </div>
       </div>
     </div>
