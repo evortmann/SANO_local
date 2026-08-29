@@ -152,7 +152,7 @@ export default function Dashboard() {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="border-none shadow-lg bg-gradient-to-br from-green-500 to-green-600 text-white overflow-hidden relative">
+          <Card className="border-none shadow-lg bg-[hsl(var(--sidebar-background))] text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -166,7 +166,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-lg bg-gradient-to-br from-green-500 to-green-600 text-white overflow-hidden relative">
+          <Card className="border-none shadow-lg bg-[hsl(var(--sidebar-background))] text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -194,7 +194,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-lg bg-gradient-to-br from-green-500 to-green-600 text-white overflow-hidden relative">
+          <Card className="border-none shadow-lg bg-[hsl(var(--sidebar-background))] text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
