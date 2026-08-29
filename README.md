@@ -97,3 +97,14 @@ As opções escolhidas são armazenadas no campo `comorbidades` como uma lista J
 A Base de Interações apresenta agora cada medicamento num único grupo expansível. Ao abrir um grupo, o utilizador vê todas as interações registadas para esse medicamento, incluindo nutriente afetado, tipo de interação, severidade e orientação nutricional. A pesquisa por medicamento ou nutriente e o filtro por severidade continuam disponíveis; ao aplicar um filtro, são mostradas apenas as interações correspondentes dentro de cada grupo.
 
 Cada interação individual continua a poder ser editada ou excluída a partir do respetivo grupo.
+
+## Catálogo farmacoterapêutico e antineoplásico
+
+A entrada **Base de Interações** apresenta duas segmentações independentes:
+
+- **Farmacoterapêutico → Medicamentos → Medicamento → Ficha detalhada**
+- **Antineoplásicos → Protocolos → Protocolo → Ficha detalhada**
+
+O catálogo inicial foi importado das páginas públicas do [Guia Farmacoterapêutico do Hospital Erasto Gaertner](https://guiafarmaco.erastogaertner.com.br/), com a fonte e a data de consulta preservadas em `sano-app/frontend/src/data/referenceCatalog.json`. O script de importação está em `tools/extract_reference_catalog.py`.
+
+A importação deve ser revista e autorizada pelo responsável pelos conteúdos antes de uma utilização institucional ou de uma redistribuição pública. O conteúdo clínico não substitui protocolos internos nem a avaliação de profissional habilitado.
