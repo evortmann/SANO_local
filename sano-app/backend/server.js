@@ -7,15 +7,17 @@ const cors = require("cors");
 
 const app = express();
 const port = Number(process.env.PORT || 3000);
+const isProduction = process.env.NODE_ENV === "production";
+const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL || undefined;
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || undefined,
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST || "localhost",
-  database: process.env.DB_DATABASE,
-  password: process.env.DB_PASSWORD,
-  port: Number(process.env.DB_PORT || 5432),
-  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : undefined,
+  connectionString,
+  user: process.env.DB_USER || process.env.PGUSER || process.env.POSTGRES_USER,
+  host: process.env.DB_HOST || process.env.PGHOST || process.env.POSTGRES_HOST || (isProduction ? undefined : "localhost"),
+  database: process.env.DB_DATABASE || process.env.PGDATABASE || process.env.POSTGRES_DB,
+  password: process.env.DB_PASSWORD || process.env.PGPASSWORD || process.env.POSTGRES_PASSWORD,
+  port: Number(process.env.DB_PORT || process.env.PGPORT || process.env.POSTGRES_PORT || 5432),
+  ssl: isProduction ? { rejectUnauthorized: false } : undefined,
 });
 
 app.use(cors({ origin: process.env.FRONTEND_ORIGIN || "http://localhost:5173" }));
@@ -201,13 +203,10 @@ app.use((req, res, next) => {
   res.sendFile(path.join(frontendDistPath, "index.html"));
 });
 
-ensureSchema()
-  .then(() => {
-    app.listen(port, () => {
-      console.log(`Backend local disponível em http://localhost:${port}`);
-    });
-  })
-  .catch((error) => {
-    console.error("Não foi possível inicializar a tabela patients:", error);
-    process.exit(1);
+app.listen(port, () => {
+  console.log(`Aplicação SANO disponível na porta ${port}`);
+
+  ensureSchema().catch((error) => {
+    console.error("Não foi possível inicializar a tabela patients. Verifique DATABASE_URL ou as variáveis PG* do Railway.", error.message);
   });
+});

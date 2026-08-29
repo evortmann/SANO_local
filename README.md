@@ -134,3 +134,7 @@ A exclusão de pacientes utiliza a rota `DELETE /api/patients/:id` e apresenta u
 ## Deploy all-in-one no Railway
 
 A raiz do projeto possui scripts para construir o frontend e iniciar o backend no mesmo serviço. O Railway deve usar `npm run build` no build e `npm start` no arranque. Configure `DATABASE_URL` usando a referência da base PostgreSQL criada no Railway. Em produção, o backend serve o frontend compilado e o cliente usa a API no mesmo domínio.
+
+### Railway: PostgreSQL
+
+O backend aceita `DATABASE_URL` ou as variáveis `PGHOST`, `PGPORT`, `PGUSER`, `PGPASSWORD` e `PGDATABASE`. No Railway, associe o serviço da aplicação ao serviço PostgreSQL e configure `DATABASE_URL` com a referência da base. Sem essa ligação, a interface pode abrir, mas as operações de pacientes não terão uma base disponível.
