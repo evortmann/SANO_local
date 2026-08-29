@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
-import { ArrowLeft, BookOpen, ChevronRight, ExternalLink, FlaskConical, Pill, Search } from "lucide-react";
+import { base44 } from "@/api/base44Client";
+import { ArrowLeft, BookOpen, ChevronRight, ExternalLink, FlaskConical, Pill, Search, Trash2, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -56,6 +57,8 @@ export default function ReferenceCatalog() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [showLiteratureSearch, setShowLiteratureSearch] = useState(false);
+  const [isClearingInteractions, setIsClearingInteractions] = useState(false);
+  const [clearMessage, setClearMessage] = useState("");
 
   const section = sectionKey ? sectionConfig[sectionKey] : null;
   const sourceItems = sectionKey ? catalog[sectionKey]?.items || [] : [];
@@ -75,6 +78,25 @@ export default function ReferenceCatalog() {
     if (selectedItem) setSelectedItem(null);
     else if (sectionKey) setSectionKey(null);
     setSearchTerm("");
+  };
+
+  const clearAllInteractions = async () => {
+    const confirmed = window.confirm("Tem certeza que deseja excluir TODOS os registos de interações? Esta ação não apaga pacientes nem orientações salvas e não pode ser desfeita.");
+    if (!confirmed) return;
+
+    setIsClearingInteractions(true);
+    setClearMessage("");
+    try {
+      const interactions = await base44.entities.DrugNutrientInteraction.list();
+      for (const interaction of interactions) {
+        await base44.entities.DrugNutrientInteraction.delete(interaction.id);
+      }
+      setClearMessage(`${interactions.length} registo(s) de interação foram excluídos.`);
+    } catch (error) {
+      setClearMessage("Não foi possível zerar a base de interações. Verifique a ligação e tente novamente.");
+    } finally {
+      setIsClearingInteractions(false);
+    }
   };
 
   if (selectedItem && section) {
@@ -204,6 +226,17 @@ export default function ReferenceCatalog() {
             <h2 className="text-2xl font-bold text-slate-900">BUSCAR</h2>
             <p className="mt-2 leading-relaxed text-slate-600">Procure novas interações droga–nutriente quando ainda não estiverem no catálogo.</p>
             <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-teal-700"><Search className="h-4 w-4" /> BUSCAR</div>
+          </button>
+        </div>
+        <div className="mt-8 flex flex-col gap-3 rounded-2xl border border-red-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="font-semibold text-slate-800">Limpar base de interações</p>
+            <p className="mt-1 text-sm text-slate-500">Exclui todos os registos da base droga–nutriente, sem apagar pacientes.</p>
+            {clearMessage && <p className="mt-2 text-sm font-medium text-slate-700">{clearMessage}</p>}
+          </div>
+          <button type="button" onClick={clearAllInteractions} disabled={isClearingInteractions} className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl border-2 border-red-600 bg-white px-4 py-2.5 text-sm font-bold text-red-700 transition-colors hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60">
+            {isClearingInteractions ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+            {isClearingInteractions ? "A limpar..." : "Zerar interações"}
           </button>
         </div>
       </div>
