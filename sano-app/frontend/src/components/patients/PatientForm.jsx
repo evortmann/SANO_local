@@ -16,6 +16,25 @@ const normalizeMedication = (value = "") =>
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "");
 
+const COMORBIDITY_OPTIONS = [
+  "HAS",
+  "DM",
+  "Ansiedade",
+  "Dislipidemia",
+  "Arritmia",
+  "DPOC",
+  "Asma",
+  "Hipotireoidismo",
+  "Depressão",
+  "Doença hepática",
+  "Hepatite",
+  "Doença coronariana",
+  "Insuficiência cardíaca",
+  "Fibromialgia e/ou dor crônica",
+  "Doença neurológica degenerativa",
+  "Refluxo",
+];
+
 const COMMON_MEDICATION_NAMES = {
   setralina: "Sertralina",
   sertraline: "Sertralina",
@@ -59,6 +78,7 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
     nome_completo: "",
     telefone: "",
     data_nascimento: "",
+    comorbidades: [],
     sexo: "",
     peso: "",
     altura: "",
@@ -71,6 +91,7 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
   });
 
   const [medicamentoInput, setMedicamentoInput] = useState("");
+  const [comorbidadeInput, setComorbidadeInput] = useState("");
 
   const { data: interactions = [] } = useQuery({
     queryKey: ["interaction-medication-options"],
@@ -169,6 +190,22 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
     }));
   };
 
+  const handleAddComorbidade = () => {
+    if (!comorbidadeInput || formData.comorbidades?.includes(comorbidadeInput)) return;
+    setFormData(prev => ({
+      ...prev,
+      comorbidades: [...(prev.comorbidades || []), comorbidadeInput],
+    }));
+    setComorbidadeInput("");
+  };
+
+  const handleRemoveComorbidade = (index) => {
+    setFormData(prev => ({
+      ...prev,
+      comorbidades: prev.comorbidades.filter((_, i) => i !== index),
+    }));
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataToSubmit = {
@@ -254,6 +291,36 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
                   <SelectItem value="Finalizado">Finalizado</SelectItem>
                 </SelectContent>
               </Select>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label className="font-medium text-slate-700">Comorbidades</Label>
+            <div className="flex gap-2">
+              <Select value={comorbidadeInput} onValueChange={setComorbidadeInput}>
+                <SelectTrigger className="flex-1 border-slate-200">
+                  <SelectValue placeholder="Selecione uma comorbidade" />
+                </SelectTrigger>
+                <SelectContent>
+                  {COMORBIDITY_OPTIONS.filter((option) => !formData.comorbidades?.includes(option)).map((option) => (
+                    <SelectItem key={option} value={option}>{option}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Button type="button" onClick={handleAddComorbidade} variant="outline" disabled={!comorbidadeInput}>
+                Adicionar
+              </Button>
+            </div>
+            <p className="text-xs text-slate-500">Selecione todas as comorbidades aplicáveis ao paciente.</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {formData.comorbidades?.map((comorbidade, index) => (
+                <div key={comorbidade} className="flex items-center gap-2 rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-700">
+                  {comorbidade}
+                  <button type="button" onClick={() => handleRemoveComorbidade(index)} className="hover:text-purple-900" aria-label={`Remover ${comorbidade}`}>
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 

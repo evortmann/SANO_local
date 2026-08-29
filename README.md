@@ -85,3 +85,9 @@ As orientações podem conter informação clínica sensível. Confirme o destin
 - `node --check sano-app/backend/server.js`: concluído com sucesso.
 
 A compilação do frontend emite apenas o aviso já existente sobre o tamanho de um dos chunks JavaScript.
+
+## Comorbidades do paciente
+
+O cadastro permite selecionar e adicionar uma ou várias comorbidades: HAS, DM, Ansiedade, Dislipidemia, Arritmia, DPOC, Asma, Hipotireoidismo, Depressão, Doença hepática, Hepatite, Doença coronariana, Insuficiência cardíaca, Fibromialgia e/ou dor crônica, Doença neurológica degenerativa e Refluxo.
+
+As opções escolhidas são armazenadas no campo `comorbidades` como uma lista JSONB no PostgreSQL. O backend cria essa coluna automaticamente em bases existentes, e as comorbidades são incluídas no contexto utilizado para gerar a orientação nutricional.

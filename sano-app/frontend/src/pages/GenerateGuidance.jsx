@@ -79,6 +79,7 @@ PACIENTE:
 - Peso: ${selectedPatient.peso || 'não informado'} kg
 - Altura: ${selectedPatient.altura || 'não informado'} cm
 - Alergias: ${selectedPatient.alergias || 'nenhuma informada'}
+- Comorbidades: ${selectedPatient.comorbidades?.length ? selectedPatient.comorbidades.join(', ') : 'nenhuma informada'}
 
 MEDICAMENTOS EM USO:
 ${patientMeds.join(', ')}
@@ -120,6 +121,7 @@ Seja detalhado, prático e considere a qualidade de vida do paciente.
         patient_id: String(selectedPatient.id),
         nome_paciente: selectedPatient.nome_completo,
         telefone: selectedPatient.telefone || "",
+        comorbidades: selectedPatient.comorbidades || [],
         medicamentos_analisados: patientMeds,
         interacoes_identificadas: interactionsData,
         orientacoes_gerais: result.orientacoes_gerais,
