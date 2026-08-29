@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+const path = require("path");
 const { Pool } = require("pg");
 const cors = require("cors");
 
@@ -8,11 +9,13 @@ const app = express();
 const port = Number(process.env.PORT || 3000);
 
 const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || undefined,
   user: process.env.DB_USER,
   host: process.env.DB_HOST || "localhost",
   database: process.env.DB_DATABASE,
   password: process.env.DB_PASSWORD,
   port: Number(process.env.DB_PORT || 5432),
+  ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : undefined,
 });
 
 app.use(cors({ origin: process.env.FRONTEND_ORIGIN || "http://localhost:5173" }));
@@ -189,6 +192,13 @@ app.put("/api/patients/:id", async (req, res) => {
     console.error("Erro ao atualizar paciente:", error);
     res.status(500).json({ message: "Não foi possível atualizar o paciente localmente." });
   }
+});
+
+const frontendDistPath = path.resolve(__dirname, "../frontend/dist");
+app.use(express.static(frontendDistPath));
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api") || req.path === "/health") return next();
+  res.sendFile(path.join(frontendDistPath, "index.html"));
 });
 
 ensureSchema()

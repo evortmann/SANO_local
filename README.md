@@ -130,3 +130,7 @@ O modelo de impressão/PDF das orientações utiliza agora verde-teal nos cabeç
 A listagem de pacientes possui agora um botão de exclusão por registo. A aplicação solicita confirmação com o nome do paciente antes de chamar a rota `DELETE /api/patients/:id`; após a remoção, a lista é atualizada automaticamente e uma mensagem de confirmação é apresentada.
 
 A exclusão de pacientes utiliza a rota `DELETE /api/patients/:id` e apresenta uma mensagem específica em caso de erro. Após atualizar o código, é necessário reiniciar o backend local para carregar a nova rota.
+
+## Deploy all-in-one no Railway
+
+A raiz do projeto possui scripts para construir o frontend e iniciar o backend no mesmo serviço. O Railway deve usar `npm run build` no build e `npm start` no arranque. Configure `DATABASE_URL` usando a referência da base PostgreSQL criada no Railway. Em produção, o backend serve o frontend compilado e o cliente usa a API no mesmo domínio.

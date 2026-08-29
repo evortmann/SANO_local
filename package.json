@@ -1,0 +1,17 @@
+{
+  "name": "sano-local",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SANO - Sistema de Orientações Nutricionais Oncológicas",
+  "scripts": {
+    "install:backend": "npm install --prefix sano-app/backend",
+    "install:frontend": "npm install --prefix sano-app/frontend",
+    "build": "npm run install:backend && npm run install:frontend && npm run build:frontend",
+    "build:frontend": "npm run build --prefix sano-app/frontend",
+    "start": "npm start --prefix sano-app/backend"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
+
