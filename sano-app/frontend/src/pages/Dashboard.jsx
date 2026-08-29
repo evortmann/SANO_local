@@ -89,25 +89,25 @@ export default function Dashboard() {
                 className={`border-2 ${
                   alert.severidade === 'Grave' 
                     ? 'bg-red-50 border-red-300' 
-                    : 'bg-orange-50 border-orange-300'
+                    : 'bg-teal-50 border-teal-300'
                 }`}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex items-start gap-3 flex-1">
                     <AlertTriangle className={`w-5 h-5 mt-0.5 ${
-                      alert.severidade === 'Grave' ? 'text-red-600' : 'text-orange-600'
+                      alert.severidade === 'Grave' ? 'text-red-600' : 'text-teal-600'
                     }`} />
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className={`font-bold ${
-                          alert.severidade === 'Grave' ? 'text-red-900' : 'text-orange-900'
+                          alert.severidade === 'Grave' ? 'text-red-900' : 'text-teal-900'
                         }`}>
                           Alerta de Interação {alert.severidade}
                         </span>
                         <Badge className={
                           alert.severidade === 'Grave' 
                             ? 'bg-red-600 text-white' 
-                            : 'bg-orange-600 text-white'
+                            : 'bg-teal-600 text-white'
                         }>
                           {alert.interacoes_count} interação(ões)
                         </Badge>
@@ -118,7 +118,7 @@ export default function Dashboard() {
                         )}
                       </div>
                       <AlertDescription className={
-                        alert.severidade === 'Grave' ? 'text-red-800' : 'text-orange-800'
+                        alert.severidade === 'Grave' ? 'text-red-800' : 'text-teal-800'
                       }>
                         {alert.mensagem}
                       </AlertDescription>
@@ -152,7 +152,7 @@ export default function Dashboard() {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="border-none shadow-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white overflow-hidden relative">
+          <Card className="border-none shadow-lg bg-gradient-to-br from-teal-500 to-teal-600 text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -166,7 +166,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-lg bg-gradient-to-br from-green-500 to-green-600 text-white overflow-hidden relative">
+          <Card className="border-none shadow-lg bg-gradient-to-br from-teal-500 to-teal-600 text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -180,7 +180,7 @@ export default function Dashboard() {
             </CardContent>
           </Card>
 
-          <Card className="border-none shadow-lg bg-gradient-to-br from-orange-500 to-orange-600 text-white overflow-hidden relative">
+          <Card className="border-none shadow-lg bg-gradient-to-br from-teal-500 to-teal-600 text-white overflow-hidden relative">
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16" />
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
@@ -213,7 +213,7 @@ export default function Dashboard() {
           <Card className="border-none shadow-lg">
             <CardHeader className="border-b border-slate-100 bg-slate-50/50">
               <CardTitle className="flex items-center gap-2 text-slate-900">
-                <Activity className="w-5 h-5 text-blue-600" />
+                <Activity className="w-5 h-5 text-teal-600" />
                 Distribuição de Severidade
               </CardTitle>
             </CardHeader>
@@ -225,7 +225,7 @@ export default function Dashboard() {
                   const percentage = Math.round((count / total) * 100);
                   const colors = {
                     'Grave': 'bg-red-500',
-                    'Moderada': 'bg-orange-500',
+                    'Moderada': 'bg-teal-500',
                     'Leve': 'bg-yellow-500'
                   };
                   
@@ -251,7 +251,7 @@ export default function Dashboard() {
           <Card className="border-none shadow-lg">
             <CardHeader className="border-b border-slate-100 bg-slate-50/50">
               <CardTitle className="flex items-center gap-2 text-slate-900">
-                <TrendingUp className="w-5 h-5 text-blue-600" />
+                <TrendingUp className="w-5 h-5 text-teal-600" />
                 Pacientes Recentes
               </CardTitle>
             </CardHeader>
@@ -260,7 +260,7 @@ export default function Dashboard() {
                 {patients.slice(0, 5).map((patient) => (
                   <div key={patient.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg hover:bg-slate-100 transition-colors">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-semibold">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-semibold">
                         {patient.nome_completo?.charAt(0).toUpperCase()}
                       </div>
                       <div>
@@ -268,7 +268,7 @@ export default function Dashboard() {
                         <p className="text-xs text-slate-500">{patient.tipo_cancer}</p>
                       </div>
                     </div>
-                    <Badge variant={patient.status === 'Ativo' ? 'default' : 'secondary'} className="bg-green-100 text-green-700 border-green-200">
+                    <Badge variant={patient.status === 'Ativo' ? 'default' : 'secondary'} className="bg-teal-100 text-teal-700 border-teal-200">
                       {patient.status}
                     </Badge>
                   </div>

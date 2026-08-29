@@ -120,3 +120,5 @@ A identidade visual foi atualizada para uma paleta inspirada no [Supera Oncologi
 ## Ajuste de contraste e tema nas telas clínicas
 
 As páginas Pacientes, Gerar Orientação e Orientações Salvas foram alinhadas à paleta teal do projeto. O menu lateral utiliza texto branco sobre o fundo teal escuro, com realce teal claro para a página ativa e melhor contraste nos estados de hover e encerramento de sessão.
+
+A tela de login também utiliza agora a paleta teal do projeto, incluindo o painel de apresentação, o fundo, o ícone de acesso e o botão de entrada.

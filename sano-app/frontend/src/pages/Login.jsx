@@ -40,26 +40,26 @@ export default function Login({ initialError = "" }) {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-white to-blue-50 p-6">
+    <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#eff8f7] via-white to-[#dff3ef] p-6">
       <div className="grid w-full max-w-5xl overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl md:grid-cols-2">
-        <section className="hidden bg-gradient-to-br from-sky-700 via-blue-700 to-indigo-800 p-10 text-white md:flex md:flex-col md:justify-between">
+        <section className="hidden bg-gradient-to-br from-[#0f766e] via-[#0d9488] to-[#1f6f68] p-10 text-white md:flex md:flex-col md:justify-between">
           <div>
             <img
               src="/sano-teamwork-logo.png"
               alt="SANO+"
               className="mb-8 h-20 w-20 rounded-2xl bg-white object-contain p-1 shadow-lg"
             />
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#d8f1ee]">
               SANO+
             </p>
             <h1 className="max-w-sm text-4xl font-bold leading-tight">
               Orientações nutricionais com mais segurança.
             </h1>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-blue-100">
+            <p className="mt-5 max-w-md text-base leading-relaxed text-[#d8f1ee]">
               Acompanhe pacientes, consulte interações e guarde orientações nutricionais oncológicas num único espaço.
             </p>
           </div>
-          <p className="text-sm text-blue-200">Acesso protegido para profissionais autorizados.</p>
+          <p className="text-sm text-[#bce6e1]">Acesso protegido para profissionais autorizados.</p>
         </section>
 
         <section className="p-7 sm:p-10 md:p-12">
@@ -76,7 +76,7 @@ export default function Login({ initialError = "" }) {
           </div>
 
           <div className="mb-8">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-100 text-blue-700">
+            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#d8f1ee] text-[#0f766e]">
               <LockKeyhole className="h-6 w-6" />
             </div>
             <h2 className="text-3xl font-bold text-slate-900">Iniciar sessão</h2>
@@ -137,7 +137,7 @@ export default function Login({ initialError = "" }) {
               </div>
             </div>
 
-            <Button type="submit" disabled={isSubmitting} className="h-12 w-full bg-green-600 text-base hover:bg-green-700">
+            <Button type="submit" disabled={isSubmitting} className="h-12 w-full bg-[#0da99a] text-base hover:bg-[#087f76]">
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />

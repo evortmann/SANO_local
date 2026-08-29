@@ -63,8 +63,8 @@ export default function Layout({ children }) {
                 className="h-11 w-11 shrink-0 rounded-xl bg-white object-contain p-0.5 shadow-lg"
               />
               <div>
-                <h2 className="font-heading font-bold text-foreground text-lg">SANO+</h2>
-                <p className="text-xs text-muted-foreground">Orientações Nutricionais</p>
+                <h2 className="font-heading font-bold text-sidebar-foreground text-lg font-bold">SANO+</h2>
+                <p className="text-xs text-sidebar-foreground/80 font-medium">Orientações Nutricionais</p>
               </div>
             </div>
           </SidebarHeader>
