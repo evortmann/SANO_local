@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
 import { base44 } from "@/api/base44Client";
 import { ArrowLeft, BookOpen, ChevronRight, ExternalLink, FlaskConical, Pill, Search, Trash2, Loader2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -59,6 +60,7 @@ export default function ReferenceCatalog() {
   const [showLiteratureSearch, setShowLiteratureSearch] = useState(false);
   const [isClearingInteractions, setIsClearingInteractions] = useState(false);
   const [clearMessage, setClearMessage] = useState("");
+  const queryClient = useQueryClient();
 
   const section = sectionKey ? sectionConfig[sectionKey] : null;
   const sourceItems = sectionKey ? catalog[sectionKey]?.items || [] : [];
@@ -91,7 +93,8 @@ export default function ReferenceCatalog() {
       for (const interaction of interactions) {
         await base44.entities.DrugNutrientInteraction.delete(interaction.id);
       }
-      setClearMessage(`${interactions.length} registo(s) de interação foram excluídos.`);
+      await queryClient.invalidateQueries({ queryKey: ["interactions"] });
+      setClearMessage(`${interactions.length} registo(s) de interação foram excluídos. Atualize a Dashboard para confirmar os indicadores.`);
     } catch (error) {
       setClearMessage("Não foi possível zerar a base de interações. Verifique a ligação e tente novamente.");
     } finally {

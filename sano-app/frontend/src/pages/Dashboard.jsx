@@ -24,6 +24,7 @@ export default function Dashboard() {
   const { data: interactions = [] } = useQuery({
     queryKey: ['interactions'],
     queryFn: () => base44.entities.DrugNutrientInteraction.list(),
+    refetchOnMount: "always",
     initialData: [],
   });
 
