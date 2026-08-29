@@ -36,6 +36,18 @@ export default function Patients() {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: (id) => patientsApi.remove(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['patients'] });
+      setSelectedPatient(null);
+      toast({ title: "Paciente excluído", description: "O paciente foi removido do banco de dados local." });
+    },
+    onError: (error) => {
+      toast({ variant: "destructive", title: "Não foi possível excluir", description: error.message });
+    },
+  });
+
   const updateMutation = useMutation({
     mutationFn: ({ id, data }) => patientsApi.update(id, data),
     onSuccess: () => {
@@ -62,6 +74,11 @@ export default function Patients() {
     setEditingPatient(patient);
     setShowForm(true);
     setSelectedPatient(null);
+  };
+
+  const handleDelete = (patient) => {
+    const confirmed = window.confirm(`Tem certeza que deseja excluir o paciente "${patient.nome_completo}"? Esta ação não pode ser desfeita.`);
+    if (confirmed) deleteMutation.mutate(patient.id);
   };
 
   const filteredPatients = patients.filter(patient =>
@@ -131,6 +148,8 @@ export default function Patients() {
                   patient={patient}
                   onView={() => setSelectedPatient(patient)}
                   onEdit={() => handleEdit(patient)}
+                  onDelete={() => handleDelete(patient)}
+                  isDeleting={deleteMutation.isPending && deleteMutation.variables === patient.id}
                 />
               ))}
             </div>

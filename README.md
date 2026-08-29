@@ -124,3 +124,7 @@ As páginas Pacientes, Gerar Orientação e Orientações Salvas foram alinhadas
 A tela de login também utiliza agora a paleta teal do projeto, incluindo o painel de apresentação, o fundo, o ícone de acesso e o botão de entrada.
 
 O modelo de impressão/PDF das orientações utiliza agora verde-teal nos cabeçalhos, títulos, separadores e setas que anteriormente estavam azuis, preservando as cores específicas de alertas clínicos.
+
+## Exclusão de pacientes
+
+A listagem de pacientes possui agora um botão de exclusão por registo. A aplicação solicita confirmação com o nome do paciente antes de chamar a rota `DELETE /api/patients/:id`; após a remoção, a lista é atualizada automaticamente e uma mensagem de confirmação é apresentada.

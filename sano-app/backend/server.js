@@ -137,6 +137,25 @@ app.post("/api/patients", async (req, res) => {
   }
 });
 
+app.delete("/api/patients/:id", async (req, res) => {
+  const id = Number(req.params.id);
+
+  if (!Number.isInteger(id) || id <= 0) {
+    return res.status(400).json({ message: "Identificador de paciente inválido." });
+  }
+
+  try {
+    const { rows } = await pool.query("DELETE FROM patients WHERE id = $1 RETURNING id", [id]);
+    if (!rows[0]) {
+      return res.status(404).json({ message: "Paciente não encontrado." });
+    }
+    res.status(204).send();
+  } catch (error) {
+    console.error("Erro ao excluir paciente:", error);
+    res.status(500).json({ message: "Não foi possível excluir o paciente localmente." });
+  }
+});
+
 app.put("/api/patients/:id", async (req, res) => {
   const id = Number(req.params.id);
   const patient = normalisePatient(req.body);

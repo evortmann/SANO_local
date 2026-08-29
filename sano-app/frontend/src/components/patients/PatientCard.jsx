@@ -2,9 +2,9 @@ import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { User, Calendar, Activity, Pill, Edit, Eye } from "lucide-react";
+import { User, Calendar, Activity, Pill, Edit, Eye, Trash2 } from "lucide-react";
 
-export default function PatientCard({ patient, onView, onEdit }) {
+export default function PatientCard({ patient, onView, onEdit, onDelete, isDeleting = false }) {
   const calculateAge = (birthDate) => {
     if (!birthDate) return null;
 
@@ -87,6 +87,9 @@ export default function PatientCard({ patient, onView, onEdit }) {
             </Button>
             <Button onClick={onEdit} variant="outline" size="sm" aria-label="Editar paciente">
               <Edit className="h-4 w-4" />
+            </Button>
+            <Button onClick={onDelete} variant="outline" size="sm" aria-label="Excluir paciente" disabled={isDeleting} className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700">
+              <Trash2 className="h-4 w-4" />
             </Button>
           </div>
         </div>

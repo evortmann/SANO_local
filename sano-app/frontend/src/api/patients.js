@@ -37,4 +37,7 @@ export const patientsApi = {
     method: "PUT",
     body: JSON.stringify(data),
   }),
+  remove: (id) => request(`/api/patients/${id}`, {
+    method: "DELETE",
+  }),
 };
