@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Plus, Search, Database, BookOpen } from "lucide-react";
 import InteractionForm from "../components/interactions/InteractionForm";
-import InteractionCard from "../components/interactions/InteractionCard";
+import InteractionGroupCard from "../components/interactions/InteractionGroupCard";
 import InteractionDetails from "../components/interactions/InteractionDetails";
 import LiteratureSearchModal from "../components/interactions/LiteratureSearchModal";
 import { toast } from "@/components/ui/use-toast";
@@ -91,12 +91,28 @@ export default function Interactions() {
   };
 
   const filteredInteractions = interactions.filter(interaction => {
-    const matchesSearch = 
-      interaction.nome_medicamento?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      interaction.nutriente_afetado?.toLowerCase().includes(searchTerm.toLowerCase());
+    const normalizedSearch = searchTerm.trim().toLowerCase();
+    const matchesSearch =
+      !normalizedSearch ||
+      interaction.nome_medicamento?.toLowerCase().includes(normalizedSearch) ||
+      interaction.nutriente_afetado?.toLowerCase().includes(normalizedSearch);
     const matchesSeverity = filterSeverity === "all" || interaction.severidade === filterSeverity;
     return matchesSearch && matchesSeverity;
   });
+
+  const groupedInteractions = Object.values(
+    filteredInteractions.reduce((groups, interaction) => {
+      const key = interaction.nome_medicamento?.trim().toLowerCase() || "medicamento não informado";
+      if (!groups[key]) {
+        groups[key] = {
+          nome_medicamento: interaction.nome_medicamento || "Medicamento não informado",
+          interactions: [],
+        };
+      }
+      groups[key].interactions.push(interaction);
+      return groups;
+    }, {})
+  ).sort((first, second) => first.nome_medicamento.localeCompare(second.nome_medicamento, "pt-BR"));
 
   return (
     <div className="p-6 md:p-8 space-y-6">
@@ -222,20 +238,24 @@ export default function Interactions() {
               </div>
             </div>
 
+            <div className="mb-4 flex items-center justify-between rounded-xl border border-blue-100 bg-blue-50 px-4 py-3 text-sm text-blue-800">
+              <span>Os registos estão agrupados por medicamento.</span>
+              <strong>{groupedInteractions.length} {groupedInteractions.length === 1 ? "medicamento" : "medicamentos"}</strong>
+            </div>
+
             <div className="grid w-full grid-cols-1 gap-3">
-              {filteredInteractions.map((interaction) => (
-                <InteractionCard
-                  key={interaction.id}
-                  interaction={interaction}
-                  onView={() => setSelectedInteraction(interaction)}
-                  onEdit={() => handleEdit(interaction)}
-                  onDelete={() => handleDelete(interaction)}
+              {groupedInteractions.map((group) => (
+                <InteractionGroupCard
+                  key={group.nome_medicamento}
+                  group={group}
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
                   isDeleting={deleteMutation.isPending}
                 />
               ))}
             </div>
 
-            {filteredInteractions.length === 0 && !isLoading && (
+            {groupedInteractions.length === 0 && !isLoading && (
               <div className="text-center py-16 bg-white rounded-2xl shadow-lg border border-slate-100">
                 <Database className="w-16 h-16 text-slate-300 mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-slate-900 mb-2">

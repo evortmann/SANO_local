@@ -91,3 +91,9 @@ A compilação do frontend emite apenas o aviso já existente sobre o tamanho de
 O cadastro permite selecionar e adicionar uma ou várias comorbidades: HAS, DM, Ansiedade, Dislipidemia, Arritmia, DPOC, Asma, Hipotireoidismo, Depressão, Doença hepática, Hepatite, Doença coronariana, Insuficiência cardíaca, Fibromialgia e/ou dor crônica, Doença neurológica degenerativa e Refluxo.
 
 As opções escolhidas são armazenadas no campo `comorbidades` como uma lista JSONB no PostgreSQL. O backend cria essa coluna automaticamente em bases existentes, e as comorbidades são incluídas no contexto utilizado para gerar a orientação nutricional.
+
+## Base de Interações agrupada por medicamento
+
+A Base de Interações apresenta agora cada medicamento num único grupo expansível. Ao abrir um grupo, o utilizador vê todas as interações registadas para esse medicamento, incluindo nutriente afetado, tipo de interação, severidade e orientação nutricional. A pesquisa por medicamento ou nutriente e o filtro por severidade continuam disponíveis; ao aplicar um filtro, são mostradas apenas as interações correspondentes dentro de cada grupo.
+
+Cada interação individual continua a poder ser editada ou excluída a partir do respetivo grupo.
