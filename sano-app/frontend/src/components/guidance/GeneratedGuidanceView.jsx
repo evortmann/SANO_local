@@ -287,19 +287,19 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
   return (
     <div className="space-y-6">
       <Card className="border-none shadow-xl bg-white">
-        <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-green-50 to-emerald-100">
+        <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-teal-50 to-teal-100">
           <div className="flex items-start justify-between">
             <div>
               <CardTitle className="text-2xl text-slate-900 flex items-center gap-2 mb-2">
-                <CheckCircle className="w-6 h-6 text-green-600" />
+                <CheckCircle className="w-6 h-6 text-teal-600" />
                 {readOnly ? "Orientação Nutricional Salva" : "Orientação Nutricional Gerada"}
               </CardTitle>
               <p className="text-slate-600">Paciente: {currentGuidance.nome_paciente}</p>
               <div className="flex gap-2 mt-2">
-                <Badge className="bg-blue-100 text-blue-700 border-blue-200">
+                <Badge className="bg-teal-100 text-teal-700 border-teal-200">
                   {currentGuidance.medicamentos_analisados.length} medicamentos analisados
                 </Badge>
-                <Badge className="bg-orange-100 text-orange-700 border-orange-200">
+                <Badge className="bg-teal-100 text-teal-700 border-teal-200">
                   {currentGuidance.interacoes_identificadas.length} interações identificadas
                 </Badge>
               </div>
@@ -309,7 +309,7 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
                 variant="outline"
                 size="sm"
                 onClick={() => { setIsEditing(!isEditing); if (isEditing) setEdited(guidance); }}
-                className={isEditing ? "border-orange-400 text-orange-600 hover:bg-orange-50" : "border-primary text-primary hover:bg-primary/10"}
+                className={isEditing ? "border-teal-400 text-teal-600 hover:bg-teal-50" : "border-primary text-primary hover:bg-primary/10"}
               >
                 <Pencil className="w-4 h-4 mr-1" />
                 {isEditing ? "Cancelar edição" : "Editar"}
@@ -320,14 +320,14 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
         <CardContent className="p-6">
           <div className="space-y-6">
             {currentGuidance.interacoes_identificadas.length > 0 && (
-              <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+              <div className="p-4 bg-teal-50 rounded-lg border border-teal-200">
                 <div className="flex items-center gap-2 mb-3">
-                  <AlertTriangle className="w-5 h-5 text-orange-600" />
-                  <h3 className="font-semibold text-orange-900">Interações Identificadas</h3>
+                  <AlertTriangle className="w-5 h-5 text-teal-600" />
+                  <h3 className="font-semibold text-teal-900">Interações Identificadas</h3>
                 </div>
                 <div className="space-y-2">
                   {currentGuidance.interacoes_identificadas.map((int, idx) => (
-                    <div key={idx} className="bg-white p-3 rounded border border-orange-200">
+                    <div key={idx} className="bg-white p-3 rounded border border-teal-200">
                       <div className="flex items-start justify-between">
                         <div>
                           <p className="font-medium text-slate-900">{int.medicamento} + {int.nutriente}</p>
@@ -335,7 +335,7 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
                         </div>
                         <Badge className={
                           int.severidade === 'Grave' ? 'bg-red-100 text-red-700 border-red-200' :
-                          int.severidade === 'Moderada' ? 'bg-orange-100 text-orange-700 border-orange-200' :
+                          int.severidade === 'Moderada' ? 'bg-teal-100 text-teal-700 border-teal-200' :
                           'bg-yellow-100 text-yellow-700 border-yellow-200'
                         }>
                           {int.severidade}
@@ -347,10 +347,10 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
               </div>
             )}
 
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="p-4 bg-teal-50 rounded-lg border border-teal-200">
               <div className="flex items-center gap-2 mb-3">
-                <FileText className="w-5 h-5 text-blue-600" />
-                <h3 className="font-semibold text-blue-900">Orientações Gerais</h3>
+                <FileText className="w-5 h-5 text-teal-600" />
+                <h3 className="font-semibold text-teal-900">Orientações Gerais</h3>
               </div>
               {isEditing ? (
                 <Textarea rows={6} value={edited.orientacoes_gerais} onChange={e => updateField('orientacoes_gerais', e.target.value)} className="bg-white" />
@@ -385,10 +385,10 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
               )}
 
               {(currentGuidance.alimentos_recomendados?.length > 0 || isEditing) && (
-                <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                <div className="p-4 bg-teal-50 rounded-lg border border-teal-200">
                   <div className="flex items-center gap-2 mb-3">
-                    <Apple className="w-5 h-5 text-green-600" />
-                    <h3 className="font-semibold text-green-900">Alimentos Recomendados</h3>
+                    <Apple className="w-5 h-5 text-teal-600" />
+                    <h3 className="font-semibold text-teal-900">Alimentos Recomendados</h3>
                   </div>
                   <ul className="space-y-2">
                     {(isEditing ? edited : currentGuidance).alimentos_recomendados?.map((alimento, idx) => (
@@ -399,21 +399,21 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
                             <button onClick={() => removeListItem('alimentos_recomendados', idx)}><Trash2 className="w-4 h-4 text-red-400 hover:text-red-600" /></button>
                           </>
                         ) : (
-                          <><span className="text-green-600 mt-1">•</span><span className="text-sm text-green-800">{alimento}</span></>
+                          <><span className="text-teal-600 mt-1">•</span><span className="text-sm text-teal-800">{alimento}</span></>
                         )}
                       </li>
                     ))}
                   </ul>
-                  {isEditing && <Button variant="ghost" size="sm" className="mt-2 text-green-600" onClick={() => addListItem('alimentos_recomendados')}><Plus className="w-3 h-3 mr-1" />Adicionar</Button>}
+                  {isEditing && <Button variant="ghost" size="sm" className="mt-2 text-teal-600" onClick={() => addListItem('alimentos_recomendados')}><Plus className="w-3 h-3 mr-1" />Adicionar</Button>}
                 </div>
               )}
             </div>
 
             {(currentGuidance.suplementacao_necessaria?.length > 0 || isEditing) && (
-              <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+              <div className="p-4 bg-teal-50 rounded-lg border border-teal-200">
                 <div className="flex items-center gap-2 mb-3">
-                  <Pill className="w-5 h-5 text-purple-600" />
-                  <h3 className="font-semibold text-purple-900">Suplementação Recomendada</h3>
+                  <Pill className="w-5 h-5 text-teal-600" />
+                  <h3 className="font-semibold text-teal-900">Suplementação Recomendada</h3>
                 </div>
                 <ul className="space-y-2">
                   {(isEditing ? edited : currentGuidance).suplementacao_necessaria?.map((supl, idx) => (
@@ -424,25 +424,25 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
                           <button onClick={() => removeListItem('suplementacao_necessaria', idx)}><Trash2 className="w-4 h-4 text-red-400 hover:text-red-600" /></button>
                         </>
                       ) : (
-                        <><span className="text-purple-600 mt-1">•</span><span className="text-sm text-purple-800">{supl}</span></>
+                        <><span className="text-teal-600 mt-1">•</span><span className="text-sm text-teal-800">{supl}</span></>
                       )}
                     </li>
                   ))}
                 </ul>
-                {isEditing && <Button variant="ghost" size="sm" className="mt-2 text-purple-600" onClick={() => addListItem('suplementacao_necessaria')}><Plus className="w-3 h-3 mr-1" />Adicionar</Button>}
+                {isEditing && <Button variant="ghost" size="sm" className="mt-2 text-teal-600" onClick={() => addListItem('suplementacao_necessaria')}><Plus className="w-3 h-3 mr-1" />Adicionar</Button>}
               </div>
             )}
 
             {(currentGuidance.horarios_alimentacao || isEditing) && (
-              <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+              <div className="p-4 bg-teal-50 rounded-lg border border-teal-200">
                 <div className="flex items-center gap-2 mb-3">
-                  <Clock className="w-5 h-5 text-amber-600" />
-                  <h3 className="font-semibold text-amber-900">Horários de Alimentação</h3>
+                  <Clock className="w-5 h-5 text-teal-600" />
+                  <h3 className="font-semibold text-teal-900">Horários de Alimentação</h3>
                 </div>
                 {isEditing ? (
                   <Textarea rows={4} value={edited.horarios_alimentacao} onChange={e => updateField('horarios_alimentacao', e.target.value)} className="bg-white" />
                 ) : (
-                  <p className="text-sm text-amber-800 whitespace-pre-wrap leading-relaxed">{currentGuidance.horarios_alimentacao}</p>
+                  <p className="text-sm text-teal-800 whitespace-pre-wrap leading-relaxed">{currentGuidance.horarios_alimentacao}</p>
                 )}
               </div>
             )}
@@ -476,7 +476,7 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
             <Button
               onClick={handleWhatsApp}
               variant="outline"
-              className="border-green-600 text-green-600 hover:bg-green-50"
+              className="border-teal-600 text-teal-600 hover:bg-teal-50"
             >
               <MessageCircle className="w-4 h-4 mr-2" />
               Enviar pelo WhatsApp
@@ -484,7 +484,7 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
             <Button 
               onClick={handlePrint} 
               variant="outline"
-              className="border-blue-600 text-blue-600 hover:bg-blue-50"
+              className="border-teal-600 text-teal-600 hover:bg-teal-50"
             >
               <Printer className="w-4 h-4 mr-2" />
               Imprimir
@@ -493,7 +493,7 @@ export default function GeneratedGuidanceView({ guidance, onSave, onCancel, isSa
               <Button 
                 onClick={handleSave} 
                 disabled={isSaving}
-                className="bg-green-600 hover:bg-green-700"
+                className="bg-teal-600 hover:bg-teal-700"
               >
                 <Save className="w-4 h-4 mr-2" />
                 {isSaving ? 'Salvando...' : 'Salvar Orientação'}

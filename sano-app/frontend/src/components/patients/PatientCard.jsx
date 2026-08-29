@@ -26,11 +26,11 @@ export default function PatientCard({ patient, onView, onEdit }) {
     : null;
 
   return (
-    <Card className="w-full border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-blue-200 hover:shadow-md">
+    <Card className="w-full border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-teal-200 hover:shadow-md">
       <CardContent className="p-4 md:p-5">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(220px,1.1fr)_minmax(360px,2.2fr)_auto] lg:items-center">
           <div className="flex min-w-0 items-center gap-3">
-            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-base font-bold text-white shadow-sm">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-teal-600 text-base font-bold text-white shadow-sm">
               {patient.nome_completo?.charAt(0).toUpperCase() || "P"}
             </div>
             <div className="min-w-0">
@@ -46,7 +46,7 @@ export default function PatientCard({ patient, onView, onEdit }) {
 
           <div className="grid min-w-0 grid-cols-1 gap-x-5 gap-y-2 text-sm text-slate-600 sm:grid-cols-2 xl:grid-cols-4">
             <div className="flex min-w-0 items-center gap-1.5">
-              <Activity className="h-4 w-4 shrink-0 text-blue-600" />
+              <Activity className="h-4 w-4 shrink-0 text-teal-600" />
               <span className="truncate" title={patient.tipo_cancer || "Diagnóstico não informado"}>
                 {patient.tipo_cancer || "Diagnóstico não informado"}
               </span>
@@ -54,21 +54,21 @@ export default function PatientCard({ patient, onView, onEdit }) {
 
             {patient.estadiamento && (
               <div className="flex items-center gap-1.5 whitespace-nowrap">
-                <Calendar className="h-4 w-4 shrink-0 text-blue-600" />
+                <Calendar className="h-4 w-4 shrink-0 text-teal-600" />
                 <span>Estádio {patient.estadiamento}</span>
               </div>
             )}
 
             {imc && (
               <div className="flex items-center gap-1.5 whitespace-nowrap">
-                <User className="h-4 w-4 shrink-0 text-blue-600" />
+                <User className="h-4 w-4 shrink-0 text-teal-600" />
                 <span>IMC {imc}</span>
               </div>
             )}
 
             {patient.medicamentos_atuais?.length > 0 && (
               <div className="flex items-center gap-1.5 whitespace-nowrap">
-                <Pill className="h-4 w-4 shrink-0 text-blue-600" />
+                <Pill className="h-4 w-4 shrink-0 text-teal-600" />
                 <span>{patient.medicamentos_atuais.length} medicamento(s)</span>
               </div>
             )}
@@ -77,7 +77,7 @@ export default function PatientCard({ patient, onView, onEdit }) {
           <div className="flex flex-wrap items-center gap-2 lg:justify-end">
             <Badge
               variant={patient.status === "Ativo" ? "default" : "secondary"}
-              className={patient.status === "Ativo" ? "border border-green-200 bg-green-100 text-green-700" : ""}
+              className={patient.status === "Ativo" ? "border border-teal-200 bg-teal-100 text-teal-700" : ""}
             >
               {patient.status || "Sem status"}
             </Badge>

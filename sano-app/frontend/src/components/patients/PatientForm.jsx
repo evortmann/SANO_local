@@ -314,9 +314,9 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
             <p className="text-xs text-slate-500">Selecione todas as comorbidades aplicáveis ao paciente.</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {formData.comorbidades?.map((comorbidade, index) => (
-                <div key={comorbidade} className="flex items-center gap-2 rounded-full bg-purple-100 px-3 py-1 text-sm text-purple-700">
+                <div key={comorbidade} className="flex items-center gap-2 rounded-full bg-teal-100 px-3 py-1 text-sm text-teal-700">
                   {comorbidade}
-                  <button type="button" onClick={() => handleRemoveComorbidade(index)} className="hover:text-purple-900" aria-label={`Remover ${comorbidade}`}>
+                  <button type="button" onClick={() => handleRemoveComorbidade(index)} className="hover:text-teal-900" aria-label={`Remover ${comorbidade}`}>
                     <X className="h-3 w-3" />
                   </button>
                 </div>
@@ -349,7 +349,7 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
                         key={medication}
                         type="button"
                         onClick={() => handleAddMedicamento(medication)}
-                        className="block w-full px-3 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-blue-50 hover:text-blue-700"
+                        className="block w-full px-3 py-2 text-left text-sm text-slate-700 transition-colors hover:bg-teal-50 hover:text-teal-700"
                       >
                         {medication}
                       </button>
@@ -364,9 +364,9 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
             <p className="text-xs text-slate-500">As sugestões usam os nomes padronizados da Base de Interações.</p>
             <div className="mt-3 flex flex-wrap gap-2">
               {formData.medicamentos_atuais?.map((med, index) => (
-                <div key={index} className="flex items-center gap-2 rounded-full bg-blue-100 px-3 py-1 text-sm text-blue-700">
+                <div key={index} className="flex items-center gap-2 rounded-full bg-teal-100 px-3 py-1 text-sm text-teal-700">
                   {med}
-                  <button type="button" onClick={() => handleRemoveMedicamento(index)} className="hover:text-blue-900" aria-label={`Remover ${med}`}>
+                  <button type="button" onClick={() => handleRemoveMedicamento(index)} className="hover:text-teal-900" aria-label={`Remover ${med}`}>
                     <X className="h-3 w-3" />
                   </button>
                 </div>
@@ -386,7 +386,7 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
 
           <div className="flex justify-end gap-3 pt-4">
             <Button type="button" variant="outline" onClick={onCancel} disabled={isLoading}>Cancelar</Button>
-            <Button type="submit" disabled={isLoading} className="bg-blue-600 hover:bg-blue-700">
+            <Button type="submit" disabled={isLoading} className="bg-teal-600 hover:bg-teal-700">
               <Save className="mr-2 h-4 w-4" />
               {isLoading ? 'Salvando...' : 'Salvar'}
             </Button>

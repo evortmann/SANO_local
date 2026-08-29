@@ -112,3 +112,11 @@ A importação deve ser revista e autorizada pelo responsável pelos conteúdos 
 ## Busca na Literatura
 
 A Base de Interações mantém agora uma terceira opção no menu principal: **Buscar na Literatura**. Ela reutiliza o fluxo de pesquisa científica existente para procurar interações droga–nutriente que ainda não estejam nos catálogos Farmacoterapêutico ou Antineoplásico. Os resultados podem ser selecionados e importados para a base de interações.
+
+## Identidade visual
+
+A identidade visual foi atualizada para uma paleta inspirada no [Supera Oncologia](https://supera.med.br/), com teal clínico, verde-azulado profundo, fundos claros, branco e um dourado discreto para destaque. Os tokens globais estão em `sano-app/frontend/src/index.css`, e a Base de Interações utiliza variações da mesma paleta nas segmentações, fichas e na opção BUSCAR.
+
+## Ajuste de contraste e tema nas telas clínicas
+
+As páginas Pacientes, Gerar Orientação e Orientações Salvas foram alinhadas à paleta teal do projeto. O menu lateral utiliza texto branco sobre o fundo teal escuro, com realce teal claro para a página ativa e melhor contraste nos estados de hover e encerramento de sessão.

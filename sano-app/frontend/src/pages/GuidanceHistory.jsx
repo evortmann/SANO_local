@@ -188,13 +188,13 @@ export default function GuidanceHistory() {
               return (
                 <Card
                   key={guidance.id}
-                  className="w-full border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-purple-200 hover:shadow-md"
+                  className="w-full border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:border-teal-200 hover:shadow-md"
                 >
                   <CardContent className="p-4 md:p-5">
                     <div className="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(230px,1.2fr)_minmax(360px,2fr)_auto] lg:items-center">
                       <div className="flex min-w-0 items-center gap-3">
-                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-purple-50">
-                          <FileText className="h-5 w-5 text-purple-600" />
+                        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-teal-50">
+                          <FileText className="h-5 w-5 text-teal-600" />
                         </div>
                         <div className="min-w-0">
                           <h2 className="truncate text-base font-bold text-slate-900 md:text-lg">
@@ -208,17 +208,17 @@ export default function GuidanceHistory() {
 
                       <div className="grid min-w-0 grid-cols-1 gap-x-5 gap-y-2 text-sm text-slate-600 sm:grid-cols-2 xl:grid-cols-3">
                         <div className="flex min-w-0 items-center gap-1.5">
-                          <User className="h-4 w-4 shrink-0 text-purple-600" />
+                          <User className="h-4 w-4 shrink-0 text-teal-600" />
                           <span className="truncate" title={(guidance.medicamentos_analisados || []).join(", ") || "Nenhum medicamento"}>
                             {(guidance.medicamentos_analisados || []).length} medicamento(s) analisado(s)
                           </span>
                         </div>
                         <div className="flex items-center gap-1.5 whitespace-nowrap">
-                          <AlertTriangle className="h-4 w-4 shrink-0 text-orange-600" />
+                          <AlertTriangle className="h-4 w-4 shrink-0 text-teal-600" />
                           <span>{interactions.length} interação(ões)</span>
                         </div>
                         <div className="flex items-center gap-1.5 whitespace-nowrap">
-                          <Calendar className="h-4 w-4 shrink-0 text-purple-600" />
+                          <Calendar className="h-4 w-4 shrink-0 text-teal-600" />
                           <span>Válida até {formatDate(guidance.validade)}</span>
                         </div>
                       </div>

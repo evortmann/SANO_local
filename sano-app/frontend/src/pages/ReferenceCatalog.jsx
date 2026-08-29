@@ -25,16 +25,16 @@ const sectionConfig = {
 
 const colorClasses = {
   blue: {
-    icon: "bg-blue-100 text-blue-700",
-    border: "border-blue-200 hover:border-blue-400",
-    badge: "bg-blue-100 text-blue-700 border-blue-200",
-    heading: "text-blue-900",
+    icon: "bg-teal-100 text-teal-700",
+    border: "border-teal-200 hover:border-teal-400",
+    badge: "bg-teal-100 text-teal-700 border-teal-200",
+    heading: "text-teal-900",
   },
   purple: {
-    icon: "bg-purple-100 text-purple-700",
-    border: "border-purple-200 hover:border-purple-400",
-    badge: "bg-purple-100 text-purple-700 border-purple-200",
-    heading: "text-purple-900",
+    icon: "bg-emerald-100 text-emerald-700",
+    border: "border-emerald-200 hover:border-emerald-400",
+    badge: "bg-emerald-100 text-emerald-700 border-emerald-200",
+    heading: "text-emerald-900",
   },
 };
 
@@ -196,14 +196,14 @@ export default function ReferenceCatalog() {
               </button>
             );
           })}
-          <button type="button" onClick={() => setShowLiteratureSearch(true)} className="group rounded-2xl border border-amber-200 bg-white p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-amber-400 hover:shadow-lg">
+          <button type="button" onClick={() => setShowLiteratureSearch(true)} className="group rounded-2xl border border-teal-200 bg-white p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-teal-400 hover:shadow-lg">
             <div className="mb-6 flex items-center justify-between">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100 text-amber-700"><BookOpen className="h-7 w-7" /></div>
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-100 text-teal-700"><BookOpen className="h-7 w-7" /></div>
               <ChevronRight className="h-6 w-6 text-slate-300 transition-transform group-hover:translate-x-1" />
             </div>
             <h2 className="text-2xl font-bold text-slate-900">BUSCAR</h2>
             <p className="mt-2 leading-relaxed text-slate-600">Procure novas interações droga–nutriente quando ainda não estiverem no catálogo.</p>
-            <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-amber-700"><Search className="h-4 w-4" /> BUSCAR</div>
+            <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-teal-700"><Search className="h-4 w-4" /> BUSCAR</div>
           </button>
         </div>
       </div>

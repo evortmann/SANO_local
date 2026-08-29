@@ -218,9 +218,9 @@ Sistema NutriOnco - Orientações Nutricionais Oncológicas
 
         {!generatedGuidance && (
           <Card className="border-none shadow-xl bg-white">
-            <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-purple-50 to-purple-100">
+            <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-teal-50 to-teal-100">
               <CardTitle className="flex items-center gap-2 text-slate-900">
-                <Sparkles className="w-6 h-6 text-purple-600" />
+                <Sparkles className="w-6 h-6 text-teal-600" />
                 Selecionar Paciente
               </CardTitle>
             </CardHeader>
@@ -248,26 +248,26 @@ Sistema NutriOnco - Orientações Nutricionais Oncológicas
                 </div>
 
                 {selectedPatient && (
-                  <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                    <h3 className="font-semibold text-blue-900 mb-3">Resumo do Paciente</h3>
+                  <div className="p-4 bg-teal-50 rounded-lg border border-teal-200">
+                    <h3 className="font-semibold text-teal-900 mb-3">Resumo do Paciente</h3>
                     <div className="grid md:grid-cols-2 gap-3 text-sm">
                       <div>
-                        <span className="text-blue-600">Nome:</span>
-                        <span className="ml-2 text-blue-900 font-medium">{selectedPatient.nome_completo}</span>
+                        <span className="text-teal-600">Nome:</span>
+                        <span className="ml-2 text-teal-900 font-medium">{selectedPatient.nome_completo}</span>
                       </div>
                       <div>
-                        <span className="text-blue-600">Tipo de câncer:</span>
-                        <span className="ml-2 text-blue-900 font-medium">{selectedPatient.tipo_cancer}</span>
+                        <span className="text-teal-600">Tipo de câncer:</span>
+                        <span className="ml-2 text-teal-900 font-medium">{selectedPatient.tipo_cancer}</span>
                       </div>
                       <div>
-                        <span className="text-blue-600">Medicamentos:</span>
-                        <span className="ml-2 text-blue-900 font-medium">
+                        <span className="text-teal-600">Medicamentos:</span>
+                        <span className="ml-2 text-teal-900 font-medium">
                           {selectedPatient.medicamentos_atuais?.length || 0}
                         </span>
                       </div>
                       <div>
-                        <span className="text-blue-600">Status:</span>
-                        <span className="ml-2 text-blue-900 font-medium">{selectedPatient.status}</span>
+                        <span className="text-teal-600">Status:</span>
+                        <span className="ml-2 text-teal-900 font-medium">{selectedPatient.status}</span>
                       </div>
                     </div>
                   </div>
@@ -283,7 +283,7 @@ Sistema NutriOnco - Orientações Nutricionais Oncológicas
                 <Button
                   onClick={handleGenerate}
                   disabled={!selectedPatientId || isGenerating}
-                  className="w-full py-6 text-lg bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 shadow-lg"
+                  className="w-full py-6 text-lg bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 shadow-lg"
                 >
                   {isGenerating ? (
                     <>

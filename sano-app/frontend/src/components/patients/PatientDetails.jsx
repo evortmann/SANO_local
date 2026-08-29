@@ -26,10 +26,10 @@ export default function PatientDetails({ patient, onClose, onEdit }) {
 
   return (
     <Card className="mb-8 border-none shadow-xl bg-white">
-      <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-blue-50 to-blue-100">
+      <CardHeader className="border-b border-slate-100 bg-gradient-to-r from-teal-50 to-teal-100">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg">
+            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-teal-500 to-teal-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg">
               {patient.nome_completo?.charAt(0).toUpperCase()}
             </div>
             <div>
@@ -40,7 +40,7 @@ export default function PatientDetails({ patient, onClose, onEdit }) {
                 {patient.sexo && <span className="text-slate-600">{patient.sexo}</span>}
                 <Badge 
                   variant={patient.status === 'Ativo' ? 'default' : 'secondary'}
-                  className={patient.status === 'Ativo' ? 'bg-green-100 text-green-700 border-green-200' : 'ml-2'}
+                  className={patient.status === 'Ativo' ? 'bg-teal-100 text-teal-700 border-teal-200' : 'ml-2'}
                 >
                   {patient.status}
                 </Badge>
@@ -62,7 +62,7 @@ export default function PatientDetails({ patient, onClose, onEdit }) {
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-4">
             <h3 className="font-semibold text-lg text-slate-900 mb-4 flex items-center gap-2">
-              <User className="w-5 h-5 text-blue-600" />
+              <User className="w-5 h-5 text-teal-600" />
               Dados Pessoais
             </h3>
 
@@ -99,11 +99,11 @@ export default function PatientDetails({ patient, onClose, onEdit }) {
             )}
 
             {imc && (
-              <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                <Activity className="w-5 h-5 text-blue-600" />
+              <div className="flex items-center gap-3 p-3 bg-teal-50 rounded-lg border border-teal-200">
+                <Activity className="w-5 h-5 text-teal-600" />
                 <div>
-                  <p className="text-xs text-blue-600 font-medium">IMC (Índice de Massa Corporal)</p>
-                  <p className="font-bold text-blue-900">{imc}</p>
+                  <p className="text-xs text-teal-600 font-medium">IMC (Índice de Massa Corporal)</p>
+                  <p className="font-bold text-teal-900">{imc}</p>
                 </div>
               </div>
             )}
@@ -111,13 +111,13 @@ export default function PatientDetails({ patient, onClose, onEdit }) {
 
           <div className="space-y-4">
             <h3 className="font-semibold text-lg text-slate-900 mb-4 flex items-center gap-2">
-              <Activity className="w-5 h-5 text-blue-600" />
+              <Activity className="w-5 h-5 text-teal-600" />
               Dados Clínicos
             </h3>
 
-            <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
-              <p className="text-xs text-orange-600 font-medium mb-1">Tipo de Câncer</p>
-              <p className="font-bold text-orange-900 text-lg">{patient.tipo_cancer}</p>
+            <div className="p-4 bg-teal-50 rounded-lg border border-teal-200">
+              <p className="text-xs text-teal-600 font-medium mb-1">Tipo de Câncer</p>
+              <p className="font-bold text-teal-900 text-lg">{patient.tipo_cancer}</p>
             </div>
 
             {patient.estadiamento && (
@@ -128,14 +128,14 @@ export default function PatientDetails({ patient, onClose, onEdit }) {
             )}
 
             {patient.medicamentos_atuais?.length > 0 && (
-              <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+              <div className="p-4 bg-teal-50 rounded-lg border border-teal-200">
                 <div className="flex items-center gap-2 mb-3">
-                  <Pill className="w-5 h-5 text-purple-600" />
-                  <p className="text-sm text-purple-900 font-medium">Medicamentos em Uso</p>
+                  <Pill className="w-5 h-5 text-teal-600" />
+                  <p className="text-sm text-teal-900 font-medium">Medicamentos em Uso</p>
                 </div>
                 <div className="space-y-2">
                   {patient.medicamentos_atuais.map((med, index) => (
-                    <div key={index} className="bg-white px-3 py-2 rounded border border-purple-200">
+                    <div key={index} className="bg-white px-3 py-2 rounded border border-teal-200">
                       <p className="text-sm font-medium text-slate-900">{med}</p>
                     </div>
                   ))}

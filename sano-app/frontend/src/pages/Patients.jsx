@@ -83,7 +83,7 @@ export default function Patients() {
               setEditingPatient(null);
               setSelectedPatient(null);
             }}
-            className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 shadow-lg"
+            className="bg-gradient-to-r from-teal-600 to-teal-700 hover:from-teal-700 hover:to-teal-800 shadow-lg"
           >
             <Plus className="w-5 h-5 mr-2" />
             Novo Paciente
@@ -145,7 +145,7 @@ export default function Patients() {
                   {searchTerm ? 'Tente buscar com outros termos' : 'Comece adicionando seu primeiro paciente'}
                 </p>
                 {!searchTerm && (
-                  <Button onClick={() => setShowForm(true)} className="bg-blue-600 hover:bg-blue-700">
+                  <Button onClick={() => setShowForm(true)} className="bg-teal-600 hover:bg-teal-700">
                     <Plus className="w-4 h-4 mr-2" />
                     Adicionar Paciente
                   </Button>

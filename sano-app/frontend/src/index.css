@@ -78,82 +78,76 @@ button:focus-visible {
 
 @layer base {
   :root {
-    /* Palette: #F4F7F9, #E0E9EF, #C9ADA7, #4A7C98, #2D3436 */
-    /* #4A7C98 → hsl(203, 35%, 44%) */
-    /* #F4F7F9 → hsl(210, 33%, 97%) */
-    /* #E0E9EF → hsl(203, 33%, 85%) */
-    /* #C9ADA7 → hsl(9, 22%, 72%) */
-    /* #2D3436 → hsl(195, 9%, 20%) */
-
-    --background: 210 33% 97%;
-    --foreground: 195 9% 20%;
+    /* Paleta inspirada no Supera: teal clínico, teal profundo, branco e dourado suave. */
+    --background: 174 28% 97%;
+    --foreground: 176 34% 18%;
     --card: 0 0% 100%;
-    --card-foreground: 195 9% 20%;
+    --card-foreground: 176 34% 18%;
     --popover: 0 0% 100%;
-    --popover-foreground: 195 9% 20%;
-    --primary: 203 35% 44%;
+    --popover-foreground: 176 34% 18%;
+    --primary: 174 82% 34%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 203 33% 85%;
-    --secondary-foreground: 195 9% 20%;
-    --muted: 203 33% 85%;
-    --muted-foreground: 195 9% 40%;
-    --accent: 9 22% 72%;
-    --accent-foreground: 195 9% 20%;
-    --destructive: 0 84.2% 60.2%;
+    --secondary: 174 34% 88%;
+    --secondary-foreground: 176 34% 18%;
+    --muted: 174 25% 91%;
+    --muted-foreground: 176 18% 39%;
+    --accent: 43 82% 58%;
+    --accent-foreground: 176 34% 18%;
+    --destructive: 0 70% 48%;
     --destructive-foreground: 0 0% 98%;
-    --border: 203 33% 85%;
-    --input: 203 33% 85%;
-    --ring: 203 35% 44%;
-    --chart-1: 203 35% 44%;
-    --chart-2: 9 22% 62%;
-    --chart-3: 195 9% 30%;
-    --chart-4: 203 33% 65%;
-    --chart-5: 9 22% 50%;
+    --border: 174 24% 84%;
+    --input: 174 24% 84%;
+    --ring: 174 82% 34%;
+    --chart-1: 174 82% 34%;
+    --chart-2: 174 50% 46%;
+    --chart-3: 176 34% 24%;
+    --chart-4: 43 82% 58%;
+    --chart-5: 174 34% 70%;
     --radius: 0.5rem;
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 195 9% 30%;
-    --sidebar-primary: 203 35% 44%;
+    --sidebar-background: 176 39% 22%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 174 82% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 33% 97%;
-    --sidebar-accent-foreground: 203 35% 44%;
-    --sidebar-border: 203 33% 85%;
-    --sidebar-ring: 203 35% 44%;
+    --sidebar-accent: 176 35% 28%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 176 28% 32%;
+    --sidebar-ring: 174 82% 42%;
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Public Sans', sans-serif;
   }
   .dark {
-    --background: 195 9% 15%;
-    --foreground: 210 33% 97%;
-    --card: 195 9% 18%;
-    --card-foreground: 210 33% 97%;
-    --popover: 195 9% 18%;
-    --popover-foreground: 210 33% 97%;
-    --primary: 203 35% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 195 9% 25%;
-    --secondary-foreground: 210 33% 97%;
-    --muted: 195 9% 25%;
-    --muted-foreground: 203 33% 70%;
-    --accent: 9 22% 60%;
-    --accent-foreground: 210 33% 97%;
-    --destructive: 0 62.8% 40%;
+    --background: 176 30% 10%;
+    --foreground: 174 28% 96%;
+    --card: 176 32% 14%;
+    --card-foreground: 174 28% 96%;
+    --popover: 176 32% 14%;
+    --popover-foreground: 174 28% 96%;
+    --primary: 174 82% 46%;
+    --primary-foreground: 176 34% 12%;
+    --secondary: 176 30% 22%;
+    --secondary-foreground: 174 28% 96%;
+    --muted: 176 30% 22%;
+    --muted-foreground: 174 24% 72%;
+    --accent: 43 82% 58%;
+    --accent-foreground: 176 34% 12%;
+    --destructive: 0 62% 42%;
     --destructive-foreground: 0 0% 98%;
-    --border: 195 9% 25%;
-    --input: 195 9% 25%;
-    --ring: 203 35% 55%;
-    --chart-1: 203 35% 55%;
-    --chart-2: 9 22% 62%;
-    --chart-3: 203 33% 65%;
-    --chart-4: 9 22% 50%;
-    --chart-5: 195 9% 50%;
-    --sidebar-background: 195 9% 12%;
-    --sidebar-foreground: 210 33% 90%;
-    --sidebar-primary: 203 35% 55%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 195 9% 20%;
-    --sidebar-accent-foreground: 210 33% 90%;
-    --sidebar-border: 195 9% 22%;
-    --sidebar-ring: 203 35% 55%;
+    --border: 176 30% 25%;
+    --input: 176 30% 25%;
+    --ring: 174 82% 46%;
+    --chart-1: 174 82% 46%;
+    --chart-2: 174 50% 56%;
+    --chart-3: 43 82% 58%;
+    --chart-4: 174 34% 70%;
+    --chart-5: 176 30% 50%;
+    --sidebar-background: 176 39% 12%;
+    --sidebar-foreground: 174 28% 92%;
+    --sidebar-primary: 174 82% 46%;
+    --sidebar-primary-foreground: 176 34% 12%;
+    --sidebar-accent: 176 35% 20%;
+    --sidebar-accent-foreground: 174 28% 92%;
+    --sidebar-border: 176 30% 22%;
+    --sidebar-ring: 174 82% 46%;
     --font-heading: 'Outfit', sans-serif;
     --font-body: 'Public Sans', sans-serif;
   }

@@ -71,7 +71,7 @@ export default function Layout({ children }) {
           
           <SidebarContent className="p-3">
             <SidebarGroup>
-              <SidebarGroupLabel className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-3 py-2">
+              <SidebarGroupLabel className="text-xs font-semibold text-sidebar-foreground uppercase tracking-wider px-3 py-2">
                 Menu Principal
               </SidebarGroupLabel>
               <SidebarGroupContent>
@@ -83,7 +83,7 @@ export default function Layout({ children }) {
                         className={`hover:bg-secondary hover:text-primary transition-all duration-200 rounded-xl mb-1 ${
                           location.pathname === item.url 
                             ? 'bg-primary text-primary-foreground shadow-md' 
-                            : 'text-muted-foreground'
+                            : 'text-sidebar-foreground'
                         }`}
                       >
                         <Link to={item.url} className="flex items-center gap-3 px-4 py-3">
@@ -99,14 +99,14 @@ export default function Layout({ children }) {
 
             <SidebarGroup className="mt-auto border-t border-border pt-3">
               <SidebarGroupContent>
-                <div className="mb-2 px-3 text-xs text-muted-foreground">
+                <div className="mb-2 px-3 text-xs text-sidebar-foreground/80">
                   {user?.full_name || user?.email || "Usuário autenticado"}
                 </div>
                 <SidebarMenu>
                   <SidebarMenuItem>
                     <SidebarMenuButton
                       onClick={() => logout()}
-                      className="rounded-xl text-muted-foreground transition-all duration-200 hover:bg-red-50 hover:text-red-700"
+                      className="rounded-xl text-sidebar-foreground transition-all duration-200 hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                     >
                       <LogOut className="h-5 w-5" />
                       <span className="font-medium">Terminar sessão</span>
