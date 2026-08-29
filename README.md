@@ -128,3 +128,5 @@ O modelo de impressão/PDF das orientações utiliza agora verde-teal nos cabeç
 ## Exclusão de pacientes
 
 A listagem de pacientes possui agora um botão de exclusão por registo. A aplicação solicita confirmação com o nome do paciente antes de chamar a rota `DELETE /api/patients/:id`; após a remoção, a lista é atualizada automaticamente e uma mensagem de confirmação é apresentada.
+
+A exclusão de pacientes utiliza a rota `DELETE /api/patients/:id` e apresenta uma mensagem específica em caso de erro. Após atualizar o código, é necessário reiniciar o backend local para carregar a nova rota.

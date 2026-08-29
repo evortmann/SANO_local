@@ -10,7 +10,9 @@ async function request(path, options = {}) {
   });
 
   if (!response.ok) {
-    let message = "Não foi possível gravar o paciente localmente.";
+    let message = options.method === "DELETE"
+      ? "Não foi possível excluir o paciente localmente."
+      : "Não foi possível gravar o paciente localmente.";
     try {
       const body = await response.json();
       message = body.message || body.error || message;

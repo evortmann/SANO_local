@@ -82,7 +82,7 @@ export default function ReferenceCatalog() {
     return (
       <div className="min-h-full bg-slate-50 p-6 md:p-8">
         <div className="mx-auto max-w-5xl">
-          <button type="button" onClick={goBack} className="mb-6 flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">
+          <button type="button" onClick={goBack} className="mb-6 inline-flex items-center gap-2 rounded-xl border-2 border-teal-600 bg-white px-4 py-2.5 text-sm font-bold text-teal-800 shadow-sm transition-all hover:bg-teal-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2">
             <ArrowLeft className="h-4 w-4" /> Voltar para {section.itemTitle.toLowerCase()}
           </button>
           <div className="mb-8 flex flex-col gap-4 rounded-2xl bg-white p-6 shadow-sm md:flex-row md:items-center md:justify-between">
@@ -126,7 +126,7 @@ export default function ReferenceCatalog() {
     return (
       <div className="min-h-full bg-slate-50 p-6 md:p-8">
         <div className="mx-auto max-w-5xl">
-          <button type="button" onClick={goBack} className="mb-6 flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">
+          <button type="button" onClick={goBack} className="mb-6 inline-flex items-center gap-2 rounded-xl border-2 border-teal-600 bg-white px-4 py-2.5 text-sm font-bold text-teal-800 shadow-sm transition-all hover:bg-teal-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2">
             <ArrowLeft className="h-4 w-4" /> Voltar para Base de Interações
           </button>
           <div className="mb-8">
@@ -161,7 +161,7 @@ export default function ReferenceCatalog() {
     return (
       <div className="min-h-full bg-slate-50 p-6 md:p-8">
         <div className="mx-auto max-w-5xl">
-          <button type="button" onClick={() => setShowLiteratureSearch(false)} className="mb-6 flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-slate-900">
+          <button type="button" onClick={() => setShowLiteratureSearch(false)} className="mb-6 inline-flex items-center gap-2 rounded-xl border-2 border-teal-600 bg-white px-4 py-2.5 text-sm font-bold text-teal-800 shadow-sm transition-all hover:bg-teal-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2">
             <ArrowLeft className="h-4 w-4" /> Voltar para Base de Interações
           </button>
           <LiteratureSearchModal
