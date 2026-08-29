@@ -54,7 +54,7 @@ export default function Layout({ children }) {
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-background">
-        <Sidebar className="border-r border-border bg-card">
+        <Sidebar className="border-r border-border !bg-[#205A55]">
           <SidebarHeader className="border-b border-border p-6">
             <div className="flex items-center gap-3">
               <img

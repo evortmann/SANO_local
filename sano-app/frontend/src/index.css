@@ -79,6 +79,7 @@ button:focus-visible {
 @layer base {
   :root {
     /* Paleta inspirada no Supera: teal clínico, teal profundo, branco e dourado suave. */
+    --sano-deep-green: #205A55;
     --background: 174 28% 97%;
     --foreground: 176 34% 18%;
     --card: 0 0% 100%;
@@ -104,7 +105,7 @@ button:focus-visible {
     --chart-4: 43 82% 58%;
     --chart-5: 174 34% 70%;
     --radius: 0.5rem;
-    --sidebar-background: 176 39% 22%;
+    --sidebar-background: 175 44% 24%;
     --sidebar-foreground: 0 0% 98%;
     --sidebar-primary: 174 82% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
@@ -140,7 +141,7 @@ button:focus-visible {
     --chart-3: 43 82% 58%;
     --chart-4: 174 34% 70%;
     --chart-5: 176 30% 50%;
-    --sidebar-background: 176 39% 12%;
+    --sidebar-background: 175 44% 16%;
     --sidebar-foreground: 174 28% 92%;
     --sidebar-primary: 174 82% 46%;
     --sidebar-primary-foreground: 176 34% 12%;
