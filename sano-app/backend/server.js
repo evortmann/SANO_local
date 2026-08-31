@@ -85,12 +85,16 @@ async function ensureSchema() {
       ADD COLUMN IF NOT EXISTS nome_completo TEXT,
       ADD COLUMN IF NOT EXISTS telefone TEXT,
       ADD COLUMN IF NOT EXISTS data_nascimento DATE,
+      ADD COLUMN IF NOT EXISTS sexo TEXT,
       ADD COLUMN IF NOT EXISTS peso NUMERIC,
       ADD COLUMN IF NOT EXISTS altura NUMERIC,
+      ADD COLUMN IF NOT EXISTS tipo_cancer TEXT,
+      ADD COLUMN IF NOT EXISTS estadiamento TEXT,
       ADD COLUMN IF NOT EXISTS medicamentos_atuais JSONB NOT NULL DEFAULT '[]'::jsonb,
       ADD COLUMN IF NOT EXISTS comorbidades JSONB NOT NULL DEFAULT '[]'::jsonb,
       ADD COLUMN IF NOT EXISTS alergias TEXT,
       ADD COLUMN IF NOT EXISTS observacoes TEXT,
+      ADD COLUMN IF NOT EXISTS status TEXT NOT NULL DEFAULT 'Ativo',
       ADD COLUMN IF NOT EXISTS created_date TIMESTAMPTZ NOT NULL DEFAULT NOW(),
       ADD COLUMN IF NOT EXISTS updated_date TIMESTAMPTZ NOT NULL DEFAULT NOW();
   `);
