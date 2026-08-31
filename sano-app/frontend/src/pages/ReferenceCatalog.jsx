@@ -1,9 +1,12 @@
 import { useMemo, useState } from "react";
-import { ArrowLeft, BookOpen, ChevronRight, ExternalLink, FlaskConical, Pill, Search } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
+import { ArrowLeft, BookOpen, ChevronRight, Database, ExternalLink, FlaskConical, Pill, Search } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import LiteratureSearchModal from "../components/interactions/LiteratureSearchModal";
+import InteractionGroupCard from "../components/interactions/InteractionGroupCard";
+import { base44 } from "../api/base44Client";
 import catalog from "../data/referenceCatalog.json";
 
 const sectionConfig = {
@@ -39,7 +42,7 @@ const colorClasses = {
 };
 
 function normalize(value = "") {
-  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  return value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
 function DetailField({ label, value }) {
@@ -56,6 +59,33 @@ export default function ReferenceCatalog() {
   const [selectedItem, setSelectedItem] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [showLiteratureSearch, setShowLiteratureSearch] = useState(false);
+  const [showOutsideCatalog, setShowOutsideCatalog] = useState(false);
+  const [outsideSearchTerm, setOutsideSearchTerm] = useState("");
+
+  const { data: importedInteractions = [], isLoading: isLoadingOutsideCatalog } = useQuery({
+    queryKey: ["interactions"],
+    queryFn: () => base44.entities.DrugNutrientInteraction.list("-updated_date"),
+    initialData: [],
+  });
+
+  const catalogMedicationNames = useMemo(() => new Set(
+    (catalog.farmacoterapeutico?.items || []).map((item) => normalize(item.name))
+  ), []);
+
+  const outsideCatalogGroups = useMemo(() => {
+    const groups = importedInteractions.reduce((result, interaction) => {
+      const name = interaction.nome_medicamento?.trim();
+      if (!name || catalogMedicationNames.has(normalize(name))) return result;
+      const key = normalize(name);
+      if (!result[key]) result[key] = { nome_medicamento: name, interactions: [] };
+      result[key].interactions.push(interaction);
+      return result;
+    }, {});
+    const query = normalize(outsideSearchTerm.trim());
+    return Object.values(groups)
+      .filter((group) => !query || normalize(group.nome_medicamento).includes(query))
+      .sort((first, second) => first.nome_medicamento.localeCompare(second.nome_medicamento, "pt-BR"));
+  }, [catalogMedicationNames, importedInteractions, outsideSearchTerm]);
 
   const section = sectionKey ? sectionConfig[sectionKey] : null;
   const sourceItems = sectionKey ? catalog[sectionKey]?.items || [] : [];
@@ -74,7 +104,9 @@ export default function ReferenceCatalog() {
   const goBack = () => {
     if (selectedItem) setSelectedItem(null);
     else if (sectionKey) setSectionKey(null);
+    else if (showOutsideCatalog) setShowOutsideCatalog(false);
     setSearchTerm("");
+    setOutsideSearchTerm("");
   };
 
 
@@ -117,6 +149,42 @@ export default function ReferenceCatalog() {
           <p className="mt-8 text-xs leading-relaxed text-slate-500">
             Fonte dos dados: Guia Farmacoterapêutico do Hospital Erasto Gaertner. Conteúdo para consulta e sujeito à validação clínica.
           </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (showOutsideCatalog) {
+    return (
+      <div className="min-h-full bg-slate-50 p-6 md:p-8">
+        <div className="mx-auto max-w-5xl">
+          <button type="button" onClick={goBack} className="mb-6 inline-flex items-center gap-2 rounded-xl border-2 border-teal-600 bg-white px-4 py-2.5 text-sm font-bold text-teal-800 shadow-sm transition-all hover:bg-teal-50 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2">
+            <ArrowLeft className="h-4 w-4" /> Voltar para Base de Interações
+          </button>
+          <div className="mb-8">
+            <p className="mb-2 text-sm font-medium uppercase tracking-wider text-slate-500">Base de Interações / BUSCAR</p>
+            <h1 className="text-3xl font-bold text-slate-900 md:text-4xl">Drogas fora do catálogo</h1>
+            <p className="mt-2 text-slate-600">Interações importadas pela literatura que ainda não estão no catálogo Farmacoterapêutico.</p>
+          </div>
+          <div className="relative mb-6">
+            <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
+            <Input value={outsideSearchTerm} onChange={(event) => setOutsideSearchTerm(event.target.value)} placeholder="Buscar medicamento..." className="border-slate-200 bg-white py-6 pl-10 shadow-sm" />
+          </div>
+          <div className="mb-4 flex items-center justify-between rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-sm text-teal-900">
+            <span>Registos importados fora do catálogo local.</span>
+            <strong>{outsideCatalogGroups.length} {outsideCatalogGroups.length === 1 ? "medicamento" : "medicamentos"}</strong>
+          </div>
+          {isLoadingOutsideCatalog ? (
+            <Card><CardContent className="p-10 text-center text-slate-500">A carregar interações importadas...</CardContent></Card>
+          ) : outsideCatalogGroups.length > 0 ? (
+            <div className="space-y-3">
+              {outsideCatalogGroups.map((group) => (
+                <InteractionGroupCard key={group.nome_medicamento} group={group} showActions={false} />
+              ))}
+            </div>
+          ) : (
+            <Card><CardContent className="p-10 text-center text-slate-500">Nenhuma droga fora do catálogo foi encontrada.</CardContent></Card>
+          )}
         </div>
       </div>
     );
@@ -197,14 +265,14 @@ export default function ReferenceCatalog() {
               </button>
             );
           })}
-          <button type="button" onClick={() => setShowLiteratureSearch(true)} className="group rounded-2xl border border-teal-200 bg-white p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-teal-400 hover:shadow-lg">
+          <button type="button" onClick={() => setShowOutsideCatalog(true)} className="group rounded-2xl border border-amber-200 bg-white p-6 text-left shadow-sm transition-all hover:-translate-y-1 hover:border-amber-400 hover:shadow-lg">
             <div className="mb-6 flex items-center justify-between">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-100 text-teal-700"><BookOpen className="h-7 w-7" /></div>
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100 text-amber-700"><Database className="h-7 w-7" /></div>
               <ChevronRight className="h-6 w-6 text-slate-300 transition-transform group-hover:translate-x-1" />
             </div>
-            <h2 className="text-2xl font-bold text-slate-900">BUSCAR</h2>
-            <p className="mt-2 leading-relaxed text-slate-600">Procure novas interações droga–nutriente quando ainda não estiverem no catálogo.</p>
-            <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-teal-700"><Search className="h-4 w-4" /> BUSCAR</div>
+            <h2 className="text-2xl font-bold text-slate-900">Drogas fora do catálogo</h2>
+            <p className="mt-2 leading-relaxed text-slate-600">Consulte interações importadas que ainda não estão no catálogo.</p>
+            <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-amber-700"><Database className="h-4 w-4" /> {outsideCatalogGroups.length} medicamentos</div>
           </button>
         </div>
       </div>

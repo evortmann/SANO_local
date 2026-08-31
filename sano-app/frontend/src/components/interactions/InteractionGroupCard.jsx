@@ -12,7 +12,7 @@ const severityConfig = {
 
 const severityRank = { Grave: 0, Moderada: 1, Leve: 2 };
 
-export default function InteractionGroupCard({ group, onEdit, onDelete, isDeleting = false }) {
+export default function InteractionGroupCard({ group, onEdit, onDelete, isDeleting = false, showActions = true }) {
   const [isOpen, setIsOpen] = useState(false);
   const highestSeverity = [...group.interactions].sort(
     (first, second) => (severityRank[first.severidade] ?? 3) - (severityRank[second.severidade] ?? 3)
@@ -83,19 +83,23 @@ export default function InteractionGroupCard({ group, onEdit, onDelete, isDeleti
                       </div>
                       <div className="flex shrink-0 flex-wrap items-center gap-2">
                         <Badge className={`${itemConfig.color} border`}>{interaction.severidade || "Não classificada"}</Badge>
-                        <Button onClick={() => onEdit(interaction)} variant="outline" size="sm" aria-label={`Editar interação de ${group.nome_medicamento}`}>
-                          <Edit className="h-4 w-4" />
-                        </Button>
-                        <Button
-                          onClick={() => onDelete(interaction)}
-                          variant="outline"
-                          size="sm"
-                          disabled={isDeleting}
-                          className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
-                        >
-                          <Trash2 className="mr-1 h-4 w-4" />
-                          Excluir
-                        </Button>
+                        {showActions && (
+                          <>
+                            <Button onClick={() => onEdit(interaction)} variant="outline" size="sm" aria-label={`Editar interação de ${group.nome_medicamento}`}>
+                              <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button
+                              onClick={() => onDelete(interaction)}
+                              variant="outline"
+                              size="sm"
+                              disabled={isDeleting}
+                              className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+                            >
+                              <Trash2 className="mr-1 h-4 w-4" />
+                              Excluir
+                            </Button>
+                          </>
+                        )}
                       </div>
                     </div>
                   </div>
