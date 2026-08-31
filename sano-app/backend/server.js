@@ -57,6 +57,18 @@ function normalisePatient(data = {}) {
   };
 }
 
+function toJsonb(value) {
+  if (value === null || value === undefined || value === "") return "[]";
+  if (typeof value === "string") {
+    try {
+      return JSON.stringify(JSON.parse(value));
+    } catch {
+      return JSON.stringify([value]);
+    }
+  }
+  return JSON.stringify(value);
+}
+
 async function ensureSchema() {
   await pool.query(`
     CREATE TABLE IF NOT EXISTS patients (
@@ -132,7 +144,7 @@ app.post("/api/patients", async (req, res) => {
 
   try {
     const values = patientColumns.map((column) =>
-      ["medicamentos_atuais", "comorbidades"].includes(column) ? JSON.stringify(patient[column]) : patient[column]
+      ["medicamentos_atuais", "comorbidades"].includes(column) ? toJsonb(patient[column]) : patient[column]
     );
     const placeholders = patientColumns.map((_, index) => `$${index + 1}`).join(", ");
     const { rows } = await pool.query(
@@ -180,7 +192,7 @@ app.put("/api/patients/:id", async (req, res) => {
     const assignments = patientColumns.map((column, index) => `${column} = $${index + 1}`).join(", ");
     const values = [
       ...patientColumns.map((column) =>
-        ["medicamentos_atuais", "comorbidades"].includes(column) ? JSON.stringify(patient[column]) : patient[column]
+        ["medicamentos_atuais", "comorbidades"].includes(column) ? toJsonb(patient[column]) : patient[column]
       ),
       id,
     ];
