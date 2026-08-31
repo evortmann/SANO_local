@@ -16,6 +16,19 @@ const normalizeMedication = (value = "") =>
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "");
 
+const asStringArray = (value) => {
+  if (Array.isArray(value)) return value.filter((item) => typeof item === "string");
+  if (typeof value === "string") {
+    try {
+      const parsed = JSON.parse(value);
+      return Array.isArray(parsed) ? parsed.filter((item) => typeof item === "string") : [];
+    } catch {
+      return value ? [value] : [];
+    }
+  }
+  return [];
+};
+
 const COMORBIDITY_OPTIONS = [
   "HAS",
   "DM",
@@ -74,7 +87,11 @@ const levenshteinDistance = (first, second) => {
 };
 
 export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) {
-  const [formData, setFormData] = useState(patient || {
+  const [formData, setFormData] = useState(patient ? {
+    ...patient,
+    medicamentos_atuais: asStringArray(patient.medicamentos_atuais),
+    comorbidades: asStringArray(patient.comorbidades),
+  } : {
     nome_completo: "",
     telefone: "",
     data_nascimento: "",
@@ -209,9 +226,19 @@ export default function PatientForm({ patient, onSubmit, onCancel, isLoading }) 
   const handleSubmit = (e) => {
     e.preventDefault();
     const dataToSubmit = {
-      ...formData,
-      peso: formData.peso ? parseFloat(formData.peso) : undefined,
-      altura: formData.altura ? parseFloat(formData.altura) : undefined,
+      nome_completo: String(formData.nome_completo || "").trim(),
+      telefone: String(formData.telefone || "").trim(),
+      data_nascimento: formData.data_nascimento || "",
+      sexo: formData.sexo || "",
+      peso: formData.peso ? parseFloat(formData.peso) : "",
+      altura: formData.altura ? parseFloat(formData.altura) : "",
+      tipo_cancer: String(formData.tipo_cancer || "").trim(),
+      estadiamento: formData.estadiamento || "",
+      medicamentos_atuais: asStringArray(formData.medicamentos_atuais),
+      comorbidades: asStringArray(formData.comorbidades),
+      alergias: formData.alergias || "",
+      observacoes: formData.observacoes || "",
+      status: formData.status || "Ativo",
     };
     onSubmit(dataToSubmit);
   };

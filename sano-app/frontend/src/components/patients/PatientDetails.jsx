@@ -143,6 +143,22 @@ export default function PatientDetails({ patient, onClose, onEdit }) {
               </div>
             )}
 
+            {patient.comorbidades?.length > 0 && (
+              <div className="p-4 bg-amber-50 rounded-lg border border-amber-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <AlertCircle className="w-5 h-5 text-amber-600" />
+                  <p className="text-sm text-amber-900 font-medium">Comorbidades</p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {patient.comorbidades.map((comorbidade, index) => (
+                    <Badge key={`${comorbidade}-${index}`} className="bg-white text-amber-900 border border-amber-300">
+                      {comorbidade}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {patient.alergias && (
               <div className="p-4 bg-red-50 rounded-lg border border-red-200">
                 <div className="flex items-center gap-2 mb-2">
