@@ -128,7 +128,7 @@ app.post("/api/patients", async (req, res) => {
 
   try {
     const values = patientColumns.map((column) =>
-      column === "medicamentos_atuais" ? JSON.stringify(patient[column]) : patient[column]
+      ["medicamentos_atuais", "comorbidades"].includes(column) ? JSON.stringify(patient[column]) : patient[column]
     );
     const placeholders = patientColumns.map((_, index) => `$${index + 1}`).join(", ");
     const { rows } = await pool.query(
@@ -176,7 +176,7 @@ app.put("/api/patients/:id", async (req, res) => {
     const assignments = patientColumns.map((column, index) => `${column} = $${index + 1}`).join(", ");
     const values = [
       ...patientColumns.map((column) =>
-        column === "medicamentos_atuais" ? JSON.stringify(patient[column]) : patient[column]
+        ["medicamentos_atuais", "comorbidades"].includes(column) ? JSON.stringify(patient[column]) : patient[column]
       ),
       id,
     ];
